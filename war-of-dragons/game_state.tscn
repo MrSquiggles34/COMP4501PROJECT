@@ -1,13 +1,21 @@
 [gd_scene format=3 uid="uid://b55p48oyoj4p8"]
 
+[ext_resource type="Script" uid="uid://cqndwg6nnxgwq" path="res://camera_control.gd" id="1_018ao"]
 [ext_resource type="PackedScene" uid="uid://b5dly7pp1l7xy" path="res://table.glb" id="1_30ppg"]
 
 [node name="Node" type="Node" unique_id=1739524700]
+
+[node name="GameInterface" type="Control" parent="." unique_id=246498740]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="PlayerCameraSetup" type="Node3D" parent="." unique_id=239011046]
 
 [node name="Marker3D" type="Marker3D" parent="PlayerCameraSetup" unique_id=861034217]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 10, 0)
+script = ExtResource("1_018ao")
 
 [node name="PlayerCamera" type="Camera3D" parent="PlayerCameraSetup/Marker3D" unique_id=1093098968]
 
