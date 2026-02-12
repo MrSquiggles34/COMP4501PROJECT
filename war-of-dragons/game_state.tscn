@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b55p48oyoj4p8"]
+
+[ext_resource type="PackedScene" uid="uid://b5dly7pp1l7xy" path="res://table.glb" id="1_30ppg"]
+
+[node name="Node" type="Node" unique_id=1739524700]
+
+[node name="PlayerCameraSetup" type="Node3D" parent="." unique_id=239011046]
+
+[node name="Marker3D" type="Marker3D" parent="PlayerCameraSetup" unique_id=861034217]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 10, 0)
+
+[node name="PlayerCamera" type="Camera3D" parent="PlayerCameraSetup/Marker3D" unique_id=1093098968]
+
+[node name="TestObject" parent="." unique_id=1539061787 instance=ExtResource("1_30ppg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.388502, -4.278338, -9.676369)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=733590100]
+transform = Transform3D(0.5793096, 0.51270956, 0.6336634, -0.8151075, 0.36439052, 0.45035443, 2.8171282e-08, -0.77739847, 0.6290084, 13.6882515, 20, 0)
+shadow_enabled = true
