@@ -13,7 +13,7 @@ config_version=5
 config/name="War of Dragons"
 run/main_scene="uid://b55p48oyoj4p8"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="uid://brcyc7dulsux1"
+config/icon="uid://dyratrl3owfya"
 
 [input]
 
