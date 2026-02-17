@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://b55p48oyoj4p8"]
 
 [ext_resource type="Script" uid="uid://cqndwg6nnxgwq" path="res://camera_control.gd" id="1_018ao"]
-[ext_resource type="PackedScene" uid="uid://b5dly7pp1l7xy" path="res://table.glb" id="1_30ppg"]
+[ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://game_state.gd" id="1_ukbay"]
+[ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://map_system.tscn" id="2_018ao"]
 
-[node name="Node" type="Node" unique_id=1739524700]
+[node name="GameState" type="Node3D" unique_id=465853294]
+script = ExtResource("1_ukbay")
 
 [node name="GameInterface" type="Control" parent="." unique_id=246498740]
 layout_mode = 3
@@ -11,18 +13,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PlayerCameraSetup" type="Node3D" parent="." unique_id=239011046]
+[node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
-[node name="Marker3D" type="Marker3D" parent="PlayerCameraSetup" unique_id=861034217]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 10, 0)
+[node name="Marker3D" type="Marker3D" parent="PlayerCameraNode" unique_id=861034217]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -32.22888, 20, 35.06301)
 script = ExtResource("1_018ao")
 
-[node name="PlayerCamera" type="Camera3D" parent="PlayerCameraSetup/Marker3D" unique_id=1093098968]
+[node name="PlayerCamera" type="Camera3D" parent="PlayerCameraNode/Marker3D" unique_id=1093098968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
-[node name="TestObject" parent="." unique_id=1539061787 instance=ExtResource("1_30ppg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6635203, -4.278338, -7.0130844)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=733590100]
-transform = Transform3D(0.5793096, 0.51270956, 0.6336634, -0.8151075, 0.36439052, 0.45035443, 2.8171282e-08, -0.77739847, 0.6290084, 13.6882515, 20, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 120, 0)
 shadow_enabled = true
+
+[node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
