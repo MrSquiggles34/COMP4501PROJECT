@@ -6,5 +6,6 @@ WASD - camera movement
 Mouse Scroll Wheel - zoom
 
 Left click on unit - select
+Left click and drag - draw selection box
 
 Right click on map - go to location
