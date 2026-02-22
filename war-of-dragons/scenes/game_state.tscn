@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://b55p48oyoj4p8"]
 
-[ext_resource type="Script" uid="uid://cqndwg6nnxgwq" path="res://camera_control.gd" id="1_018ao"]
-[ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://game_state.gd" id="1_ukbay"]
-[ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://map_system.tscn" id="2_018ao"]
+[ext_resource type="Script" uid="uid://cqndwg6nnxgwq" path="res://scripts/camera_control.gd" id="1_018ao"]
+[ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://scripts/game_state.gd" id="1_ukbay"]
+[ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://scenes/map_system.tscn" id="2_018ao"]
+[ext_resource type="Script" uid="uid://cibcr6l8est7x" path="res://scripts/selection_box.gd" id="4_gu6ud"]
 
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
@@ -27,3 +28,15 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 shadow_enabled = true
 
 [node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
+
+[node name="SelectionUI" type="CanvasLayer" parent="." unique_id=530867672]
+
+[node name="SelectionBox" type="Control" parent="SelectionUI" unique_id=19137882]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_gu6ud")
