@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dw880124lcimr"]
 
-[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/unit.tscn" id="2_xypqd"]
+[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="2_xypqd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xypqd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -209,20 +209,30 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -27.
 size = Vector3(1, 10, 11.579712)
 material = SubResource("StandardMaterial3D_oglnf")
 
-[node name="TestUnit" parent="." unique_id=1023116470 instance=ExtResource("2_xypqd")]
+[node name="Entities" type="Node3D" parent="." unique_id=1583558056]
+
+[node name="Collectibles" type="Node3D" parent="Entities" unique_id=1325690595]
+
+[node name="DynamicEntity" type="Node3D" parent="Entities" unique_id=2085708710]
+
+[node name="Dragons" type="Node3D" parent="Entities/DynamicEntity" unique_id=1418918280]
+
+[node name="TestUnit" parent="Entities/DynamicEntity/Dragons" unique_id=1023116470 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.39692, 2, -10.383576)
 
-[node name="TestGuy" parent="." unique_id=125636328 instance=ExtResource("2_xypqd")]
+[node name="TestGuy" parent="Entities/DynamicEntity/Dragons" unique_id=125636328 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.976395, 2.9999993, 41.727722)
 
-[node name="TestBro" parent="." unique_id=477278707 instance=ExtResource("2_xypqd")]
+[node name="TestBro" parent="Entities/DynamicEntity/Dragons" unique_id=477278707 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.939713, 3, -6.635845)
 
-[node name="Tester" parent="." unique_id=1711927600 instance=ExtResource("2_xypqd")]
+[node name="Tester" parent="Entities/DynamicEntity/Dragons" unique_id=1711927600 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.47869, 18.31504, -4.2184615)
 
-[node name="TestMan" parent="." unique_id=1175293253 instance=ExtResource("2_xypqd")]
+[node name="TestMan" parent="Entities/DynamicEntity/Dragons" unique_id=1175293253 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.011904, 7.58595, -2.5712986)
 
-[node name="TestWorker" parent="." unique_id=1447889762 instance=ExtResource("2_xypqd")]
+[node name="TestWorker" parent="Entities/DynamicEntity/Dragons" unique_id=1447889762 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.428, 2, 1.199)
+
+[node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
