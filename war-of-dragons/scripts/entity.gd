@@ -2,7 +2,7 @@ class_name Entity
 extends CharacterBody3D
 
 # Use this to categorize Entities
-enum EntityType { DRAGON, ENEMY, COLLECTIBLE, OBSTACLE, BASE }
+enum EntityType { DRAGON, HOSTILE, COLLECTIBLE, OBSTACLE, BASE }
 
 @export var entity_type: EntityType = EntityType.DRAGON
 

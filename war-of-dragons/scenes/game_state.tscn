@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://scripts/game_state.gd" id="1_ukbay"]
 [ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://scenes/map_system.tscn" id="2_018ao"]
 [ext_resource type="Script" uid="uid://cibcr6l8est7x" path="res://scripts/selection_box.gd" id="4_gu6ud"]
+[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="5_0ebsy"]
 
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
@@ -40,3 +41,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_gu6ud")
+
+[node name="CharacterBody3D" parent="." unique_id=1023116470 instance=ExtResource("5_0ebsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4691725, 2.9999962, 14.942919)

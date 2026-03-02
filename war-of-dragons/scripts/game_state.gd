@@ -4,6 +4,7 @@ extends Node3D
 @onready var selection_rect = $SelectionUI/SelectionBox
 @onready var entities_container = $Map/Entities
 
+#NOTE: Before accessing these arrays, you should call clean_entities()
 var entities: Array[Entity] = []
 var selected_entities: Array[Entity] = []
 
@@ -50,7 +51,42 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if selected_entities.size() > 0:
-			command_move(event.position)
+			var from = camera.project_ray_origin(event.position)
+			var to = from + camera.project_ray_normal(event.position) * 1000.0
+			
+			var space_state = get_world_3d().direct_space_state
+			var query = PhysicsRayQueryParameters3D.create(from, to)
+			var result = space_state.intersect_ray(query)
+			
+			if not result:
+				return
+			
+			var clicked_entity = result.collider
+			var click_position: Vector3 = result.position
+			
+			if clicked_entity is Hostile:
+				# Attack the hostile with all selected dragons
+				for entity in selected_entities:
+					if entity is Dragon:
+						entity.attack(clicked_entity)
+			else:
+				# Regular move if clicked on ground
+				var unit_count = selected_entities.size()
+				var spacing = 2.0
+				var columns: int = int(ceil(sqrt(float(unit_count))))
+				
+				for i in range(unit_count):
+					var row = i / columns
+					var col = i % columns
+					
+					var offset = Vector3(
+						(col - columns / 2.0) * spacing,
+						0,
+						row * spacing
+					)
+					
+					if selected_entities[i] is Dragon:
+						selected_entities[i].move_to(click_position + offset)
 
 func select_unit(mouse_pos: Vector2) -> void:
 	var from = camera.project_ray_origin(mouse_pos)
@@ -72,13 +108,13 @@ func select_unit(mouse_pos: Vector2) -> void:
 		print("Selected:", result.collider.name)
 
 func select_units_in_rectangle():
+	clean_entities()
 
 	var rect = Rect2(selection_rect.drag_start, selection_rect.drag_end - selection_rect.drag_start).abs()
 
 	# Clear previous selection
 	for entity in entities:
 		entity.set_selected(false)
-
 	selected_entities.clear()
 
 	# Check all units
@@ -125,3 +161,19 @@ func command_move(mouse_pos: Vector2) -> void:
 		
 		if selected_entities[i] is Dragon:
 			selected_entities[i].move_to(click_position + offset)
+
+# Remove an entity from the game REQUIRED FOR ACCESSING ENTITY ARRAYS
+func clean_entities():
+	var i = 0
+	while i < entities.size():
+		if not is_instance_valid(entities[i]):
+			entities.remove_at(i)
+		else:
+			i += 1
+
+	i = 0
+	while i < selected_entities.size():
+		if not is_instance_valid(selected_entities[i]):
+			selected_entities.remove_at(i)
+		else:
+			i += 1

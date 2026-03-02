@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dw880124lcimr"]
 
+[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="2_ss0ul"]
 [ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="2_xypqd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xypqd"]
@@ -236,3 +237,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.011904, 7.58595, -2.57129
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.428, 2, 1.199)
 
 [node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
+
+[node name="CharacterBody3D2" parent="Entities/DynamicEntity/Hostiles" unique_id=714028336 instance=ExtResource("2_ss0ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.679201, 6.8195753, -1.2114401)
+
+[node name="CharacterBody3D" parent="." unique_id=830323091 instance=ExtResource("2_ss0ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.222502, 6.454891, 5.5664463)
