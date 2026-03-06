@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="War of Dragons"
-run/main_scene="uid://b55p48oyoj4p8"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://dyratrl3owfya"
+
+[autoload]
+
+Global="*res://scripts/global.gd"
 
 [input]
 
