@@ -8,10 +8,111 @@ extends Node3D
 var entities: Array[Entity] = []
 var selected_entities: Array[Entity] = []
 
+var save_path := "res://savegame.json"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Retrieve all the entities in the scene
+	initialize_game(Global.load_from_save)
+
+func initialize_game(is_loading: bool) -> void:
+	if is_loading and FileAccess.file_exists(save_path):
+		load_game()
+	else:
+		start_new_game()
+		save_game() # Automatically create save file on new game setup
+		
+	# Refresh entities list after setup or load
 	entities = get_all_entities(entities_container)
+
+func start_new_game() -> void:
+	# Define beginning parameters for a new game.
+	# For example: start with only 1 Dragon unit
+	var dragons_container = $Map/Entities/DynamicEntity/Dragons
+	
+	# We remove all predefined dragons except the first one
+	var all_dragons = dragons_container.get_children()
+	if all_dragons.size() > 0:
+		var initial_dragon = all_dragons[0]
+		# Position it at a central spot
+		initial_dragon.global_position = Vector3(0, 6, 0)
+		
+		# Queue remaining dragons for deletion
+		for i in range(1, all_dragons.size()):
+			all_dragons[i].queue_free()
+
+func save_game() -> void:
+	# Keep entities array up to date before saving
+	clean_entities()
+	entities = get_all_entities(entities_container)
+	
+	var save_data = {
+		"dragon_count": 0,
+		"hostile_count": 0
+	}
+	
+	for entity in entities:
+		if not is_instance_valid(entity) or entity.is_queued_for_deletion():
+			continue
+			
+		if entity.entity_type == Entity.EntityType.DRAGON:
+			save_data["dragon_count"] += 1
+		elif entity.entity_type == Entity.EntityType.HOSTILE: 
+			save_data["hostile_count"] += 1
+			
+	var json_string = JSON.stringify(save_data)
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	if file:
+		file.store_string(json_string)
+		file.close()
+
+func load_game() -> void:
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	if not file:
+		return
+		
+	var content = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var error = json.parse(content)
+	if error != OK:
+		print("JSON Parse Error: ", json.get_error_message())
+		return
+		
+	var save_data = json.data
+	
+	var dragons_container = $Map/Entities/DynamicEntity/Dragons
+	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
+	
+	# Clear out existing units before loading
+	for child in dragons_container.get_children():
+		child.queue_free()
+	for child in hostiles_container.get_children():
+		child.queue_free()
+		
+	# We need to spawn units. We need the Dragon and Hostile scenes.
+	var dragon_scene = load("res://scenes/dragon.tscn")
+	var hostile_scene = load("res://scenes/hostile.tscn")
+	
+	if save_data.has("dragon_count"):
+		var count = save_data["dragon_count"]
+		for i in range(count):
+			var new_dragon = dragon_scene.instantiate()
+			dragons_container.add_child(new_dragon)
+			# Spawn in a grid near origin
+			var row = i / 5
+			var col = i % 5
+			new_dragon.global_position = Vector3(col * 2.0 - 4.0, 6, row * 2.0 - 4.0)
+			
+	if save_data.has("hostile_count"):
+		var count = save_data["hostile_count"]
+		for i in range(count):
+			var new_hostile = hostile_scene.instantiate()
+			hostiles_container.add_child(new_hostile)
+			# Spawn in a grid offset from the dragons
+			var row = i / 5
+			var col = i % 5
+			new_hostile.global_position = Vector3(col * 2.0 - 4.0, 6, -10.0 - row * 2.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
