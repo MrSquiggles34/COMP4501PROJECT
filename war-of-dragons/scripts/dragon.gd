@@ -3,13 +3,15 @@ extends DynamicEntity
 
 @export var gravity: float = 9.8
 
-enum DragonState { IDLE, MOVING, APPROACHING, ATTACKING }
+enum DragonState { IDLE, MOVING, APPROACHING, ATTACKING, CARRYING }
 var state: DragonState = DragonState.IDLE
 
 # Attack Parameters
 var attack_target: Hostile = null
 var attack_distance: float = 2.0  
 var bump_speed: float = 10.0
+
+const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible scene to spawn collectibles when enemies die
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,11 +30,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0
 	
+	#for when in an idle or moving state and a collectible body has entered into dragons range
+	
+	
 	# Generic State Machine
 	match state:
 		DragonState.IDLE:
 			velocity.x = 0
 			velocity.z = 0
+			
+			#if attack_distane < 1.0:
+				#_process_attack(delta)
 			
 		DragonState.MOVING:
 			_process_movement(delta)
@@ -53,6 +61,10 @@ func _physics_process(delta: float) -> void:
 			
 		DragonState.ATTACKING:
 			_process_attack(delta)
+			
+		DragonState.CARRYING:
+			
+			pass
 
 	move_and_slide()
 	
@@ -69,7 +81,7 @@ func _process_movement(delta: float):
 		
 		direction.y = 0
 		
-		if direction.length() > 0.05:
+		if direction.length() > 0.1:
 			direction = direction.normalized()
 			velocity.x = direction.x * move_speed
 			velocity.z = direction.z * move_speed
@@ -98,8 +110,16 @@ func _process_attack(delta: float):
 
 	# Check if close enough to attack (right now single hit)
 	if global_position.distance_to(attack_target.global_position) < attack_distance:
-		attack_target.queue_free()  
+		var drop_position = attack_target.global_position
+		
+		attack_target.queue_free() #kill hostile 
 		attack_target = null
+		
+		#spawn collectible
+		var collectible = CollectibleScene.instantiate()
+		get_parent().add_child(collectible)
+		collectible.global_position = drop_position #drop collectible at the position of the enemy
+		
 		set_state(DragonState.IDLE)
 		
 		
@@ -117,4 +137,9 @@ func state_to_string(s: DragonState) -> String:
 		DragonState.MOVING: return "MOVING"
 		DragonState.APPROACHING: return "APPROACHING"
 		DragonState.ATTACKING: return "ATTACKING"
+		DragonState.CARRYING: return "CARRYING"
 	return "UNKNOWN"
+	
+func _on_body_entered(target):
+	if target.entity_type == Entity.EntityType.COLLECTIBLE:
+		set_state(DragonState.CARRYING)
