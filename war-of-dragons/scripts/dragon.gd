@@ -117,7 +117,11 @@ func _process_attack(delta: float):
 		
 		#spawn collectible
 		var collectible = CollectibleScene.instantiate()
-		get_parent().add_child(collectible)
+		var coll_container = get_node_or_null("../../../Collectibles")
+		if coll_container:
+			coll_container.add_child(collectible)
+		else:
+			get_parent().add_child(collectible)
 		collectible.global_position = drop_position #drop collectible at the position of the enemy
 		
 		set_state(DragonState.IDLE)

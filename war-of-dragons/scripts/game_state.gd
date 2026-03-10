@@ -2,6 +2,9 @@ extends Node3D
 
 @onready var camera: Camera3D = $PlayerCameraNode/Marker3D/PlayerCamera
 @onready var selection_rect = $SelectionUI/SelectionBox
+@onready var game_interface = $GameInterfaceLayer
+@onready var dragons_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/DragonsLabel
+@onready var enemies_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/EnemiesLabel
 @onready var entities_container = $Map/Entities
 
 #NOTE: Before accessing these arrays, you should call clean_entities()
@@ -12,6 +15,7 @@ var save_path := "res://savegame.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().set_auto_accept_quit(false)
 	initialize_game(Global.load_from_save)
 
 func initialize_game(is_loading: bool) -> void:
@@ -52,15 +56,30 @@ func start_new_game() -> void:
 		for i in range(1, all_hostiles.size()):
 			all_hostiles[i].queue_free()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_game()
+		if has_node("Map") and $Map.has_method("save_collectibles_sync"):
+			$Map.save_collectibles_sync()
+		get_tree().quit()
+
 func save_game() -> void:
 	# Keep entities array up to date before saving
 	clean_entities()
 	entities = get_all_entities(entities_container)
 	
-	var save_data = {
-		"dragon_count": 0,
-		"hostile_count": 0
-	}
+	var save_data = {}
+	if FileAccess.file_exists(save_path):
+		var file_read = FileAccess.open(save_path, FileAccess.READ)
+		if file_read:
+			var text = file_read.get_as_text()
+			file_read.close()
+			var json = JSON.new()
+			if json.parse(text) == OK and typeof(json.data) == TYPE_DICTIONARY:
+				save_data = json.data
+				
+	save_data["dragon_count"] = 0
+	save_data["hostile_count"] = 0
 	
 	for entity in entities:
 		if not is_instance_valid(entity) or entity.is_queued_for_deletion():
@@ -95,16 +114,20 @@ func load_game() -> void:
 	
 	var dragons_container = $Map/Entities/DynamicEntity/Dragons
 	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
+	var collectibles_container = $Map/Entities/Collectibles
 	
 	# Clear out existing units before loading
 	for child in dragons_container.get_children():
 		child.queue_free()
 	for child in hostiles_container.get_children():
 		child.queue_free()
+	for child in collectibles_container.get_children():
+		child.queue_free()
 		
 	# We need to spawn units. We need the Dragon and Hostile scenes.
 	var dragon_scene = load("res://scenes/dragon.tscn")
 	var hostile_scene = load("res://scenes/hostile.tscn")
+	var collectible_scene = load("res://scenes/collectible.tscn")
 	
 	if save_data.has("dragon_count"):
 		var count = save_data["dragon_count"]
@@ -125,11 +148,45 @@ func load_game() -> void:
 			var row = i / 5
 			var col = i % 5
 			new_hostile.global_position = Vector3(col * 2.0 - 4.0, 6, -10.0 - row * 2.0)
+			
+	if save_data.has("collectibles"):
+		for c_data in save_data["collectibles"]:
+			var new_collectible = collectible_scene.instantiate()
+			collectibles_container.add_child(new_collectible)
+			new_collectible.global_position = Vector3(c_data["pos_x"], c_data["pos_y"], c_data["pos_z"])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("open_interface"):
+		game_interface.visible = not game_interface.visible
+		if game_interface.visible:
+			_update_interface_stats()
+
+func _update_interface_stats() -> void:
+	clean_entities()
+	entities = get_all_entities(entities_container)
+	
+	var d_count = 0
+	var h_count = 0
+	for entity in entities:
+		if is_instance_valid(entity) and not entity.is_queued_for_deletion():
+			if entity.entity_type == Entity.EntityType.DRAGON:
+				d_count += 1
+			elif entity.entity_type == Entity.EntityType.HOSTILE:
+				h_count += 1
+				
+	dragons_label.text = "Dragons: " + str(d_count)
+	enemies_label.text = "Enemies: " + str(h_count)
+
+func _on_quit_to_menu_button_pressed() -> void:
+	save_game()
+	if has_node("Map") and $Map.has_method("save_collectibles_sync"):
+		$Map.save_collectibles_sync()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
 func get_all_entities(node: Node) -> Array[Entity]:
 	var result: Array[Entity] = []
 	for child in node.get_children():

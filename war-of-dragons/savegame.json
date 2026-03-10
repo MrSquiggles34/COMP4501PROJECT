@@ -1,1 +1,12 @@
-{"dragon_count":1,"hostile_count":1}
+{
+	"collectibles": [
+		{
+			"name": "Collectible",
+			"pos_x": -30.0,
+			"pos_y": 2.00113964080811,
+			"pos_z": -20.0
+		}
+	],
+	"dragon_count": 1,
+	"hostile_count": 1
+}
