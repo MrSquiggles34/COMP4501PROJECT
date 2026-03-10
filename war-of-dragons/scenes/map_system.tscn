@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dw880124lcimr"]
 
+[ext_resource type="Script" uid="uid://dnuve6ggjwxap" path="res://scripts/map_system.gd" id="1_o3q63"]
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="2_ss0ul"]
 [ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="2_xypqd"]
 
@@ -28,7 +29,8 @@ agent_max_climb = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oglnf"]
 
-[node name="Node" type="Node" unique_id=1208725545]
+[node name="Map" type="Node" unique_id=1208725545]
+script = ExtResource("1_o3q63")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1826104339]
 environment = SubResource("Environment_t0gbj")
@@ -218,7 +220,7 @@ material = SubResource("StandardMaterial3D_oglnf")
 
 [node name="Dragons" type="Node3D" parent="Entities/DynamicEntity" unique_id=1418918280]
 
-[node name="TestUnit" parent="Entities/DynamicEntity/Dragons" unique_id=1023116470 instance=ExtResource("2_xypqd")]
+[node name="Dragon1" parent="Entities/DynamicEntity/Dragons" unique_id=1023116470 instance=ExtResource("2_xypqd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.39692, 2, -10.383576)
 
 [node name="TestGuy" parent="Entities/DynamicEntity/Dragons" unique_id=125636328 instance=ExtResource("2_xypqd")]
@@ -238,8 +240,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.428, 2, 1.199)
 
 [node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
 
-[node name="CharacterBody3D2" parent="Entities/DynamicEntity/Hostiles" unique_id=714028336 instance=ExtResource("2_ss0ul")]
+[node name="BadGuy" parent="Entities/DynamicEntity/Hostiles" unique_id=714028336 instance=ExtResource("2_ss0ul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.679201, 6.8195753, -1.2114401)
-
-[node name="CharacterBody3D" parent="." unique_id=830323091 instance=ExtResource("2_ss0ul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.222502, 6.454891, 5.5664463)

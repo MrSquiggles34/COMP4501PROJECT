@@ -28,17 +28,29 @@ func start_new_game() -> void:
 	# Define beginning parameters for a new game.
 	# For example: start with only 1 Dragon unit
 	var dragons_container = $Map/Entities/DynamicEntity/Dragons
+	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
 	
 	# We remove all predefined dragons except the first one
 	var all_dragons = dragons_container.get_children()
 	if all_dragons.size() > 0:
 		var initial_dragon = all_dragons[0]
 		# Position it at a central spot
-		initial_dragon.global_position = Vector3(0, 6, 0)
+		initial_dragon.global_position = Vector3(-30, 6, 20)
 		
 		# Queue remaining dragons for deletion
 		for i in range(1, all_dragons.size()):
 			all_dragons[i].queue_free()
+	
+	# We remove all predefined hostiles except the first one
+	var all_hostiles = hostiles_container.get_children()
+	if all_hostiles.size() > 0:
+		var initial_hostile = all_hostiles[0]
+		# Position it at a central spot
+		initial_hostile.global_position = Vector3(-30, 6, -20)
+		
+		# Queue remaining hostiles for deletion
+		for i in range(1, all_hostiles.size()):
+			all_hostiles[i].queue_free()
 
 func save_game() -> void:
 	# Keep entities array up to date before saving
@@ -99,10 +111,10 @@ func load_game() -> void:
 		for i in range(count):
 			var new_dragon = dragon_scene.instantiate()
 			dragons_container.add_child(new_dragon)
-			# Spawn in a grid near origin
+			# Spawn in a grid near the start area (-30, 6, 20)
 			var row = i / 5
 			var col = i % 5
-			new_dragon.global_position = Vector3(col * 2.0 - 4.0, 6, row * 2.0 - 4.0)
+			new_dragon.global_position = Vector3(-30.0 + (col * 2.0), 6, 20.0 + (row * 2.0))
 			
 	if save_data.has("hostile_count"):
 		var count = save_data["hostile_count"]
