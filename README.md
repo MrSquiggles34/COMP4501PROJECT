@@ -2,6 +2,7 @@
 Real-Time Strategy Game made in Godot
 
 WASD - camera movement
+
 Esc - in-game menu
 
 Mouse Scroll Wheel - zoom
