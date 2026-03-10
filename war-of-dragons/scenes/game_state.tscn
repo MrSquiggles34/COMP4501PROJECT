@@ -8,11 +8,61 @@
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
 
-[node name="GameInterface" type="Control" parent="." unique_id=246498740]
+[node name="GameInterfaceLayer" type="CanvasLayer" parent="." unique_id=246498740]
+visible = false
+
+[node name="GameInterface" type="Control" parent="GameInterfaceLayer" unique_id=8923485]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameInterfaceLayer/GameInterface" unique_id=983248324]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameInterfaceLayer/GameInterface" unique_id=5347294]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameInterfaceLayer/GameInterface/CenterContainer" unique_id=262334]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=883112]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Game Menu"
+horizontal_alignment = 1
+
+[node name="DragonsLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=233411]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Dragons: 0"
+horizontal_alignment = 1
+
+[node name="EnemiesLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=533221]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Enemies: 0"
+horizontal_alignment = 1
+
+[node name="QuitToMenuButton" type="Button" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=902315]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Quit to Main Menu"
 
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
@@ -40,3 +90,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_gu6ud")
+
+[connection signal="pressed" from="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
