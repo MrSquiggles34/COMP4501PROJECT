@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dvefr45ja6te8"]
+
+[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_q5x3f"]
+
+[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_q5x3f")]
