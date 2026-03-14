@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://byscrblssuqyx"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_mmn"]
+[ext_resource type="Script" uid="uid://druypli1h3ykx" path="res://scripts/main_menu.gd" id="1_mmn"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1986121503]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mmn")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1367120673]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.12549, 0.145098, 0.192157, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1161969317]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,34 +28,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=616250028]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1574788915]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
 text = "War of Dragons"
 horizontal_alignment = 1
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="ButtonsVBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=440952498]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox"]
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox" unique_id=354892271]
 custom_minimum_size = Vector2(250, 65)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "New Game"
 
-[node name="LoadButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox"]
+[node name="LoadButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox" unique_id=1688009770]
 custom_minimum_size = Vector2(250, 65)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Load Game"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox"]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox" unique_id=551531629]
 custom_minimum_size = Vector2(250, 65)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28

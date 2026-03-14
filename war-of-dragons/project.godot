@@ -19,6 +19,10 @@ config/icon="uid://dyratrl3owfya"
 
 Global="*res://scripts/global.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+
 [input]
 
 camera_left={
