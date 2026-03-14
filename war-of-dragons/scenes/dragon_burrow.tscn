@@ -1,5 +1,12 @@
 [gd_scene format=3 uid="uid://bc0y51golyius"]
 
 [ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_idl5n"]
+[ext_resource type="PackedScene" uid="uid://b84tqecw7qfca" path="res://art/dragon/dragon_burrow.glb" id="2_c3jej"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_idl5n")]
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=575317902]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5875039, 0)
+
+[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1891627059) index="0" unique_id=362815489 instance=ExtResource("2_c3jej")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

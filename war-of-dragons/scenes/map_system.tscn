@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnuve6ggjwxap" path="res://scripts/map_system.gd" id="1_o3q63"]
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="2_ss0ul"]
-[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="2_xypqd"]
+[ext_resource type="PackedScene" uid="uid://bc0y51golyius" path="res://scenes/dragon_burrow.tscn" id="4_mmwm2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xypqd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -220,25 +220,13 @@ material = SubResource("StandardMaterial3D_oglnf")
 
 [node name="Dragons" type="Node3D" parent="Entities/DynamicEntity" unique_id=1418918280]
 
-[node name="Dragon1" parent="Entities/DynamicEntity/Dragons" unique_id=1023116470 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.39692, 2, -10.383576)
-
-[node name="TestGuy" parent="Entities/DynamicEntity/Dragons" unique_id=125636328 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.976395, 2.9999993, 41.727722)
-
-[node name="TestBro" parent="Entities/DynamicEntity/Dragons" unique_id=477278707 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.939713, 3, -6.635845)
-
-[node name="Tester" parent="Entities/DynamicEntity/Dragons" unique_id=1711927600 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.47869, 18.31504, -4.2184615)
-
-[node name="TestMan" parent="Entities/DynamicEntity/Dragons" unique_id=1175293253 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.011904, 7.58595, -2.5712986)
-
-[node name="TestWorker" parent="Entities/DynamicEntity/Dragons" unique_id=1447889762 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.428, 2, 1.199)
+[node name="CharacterBody3D3" parent="Entities/DynamicEntity/Dragons" unique_id=283793771 instance=ExtResource("4_mmwm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 2.7244873, 0)
 
 [node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
 
 [node name="BadGuy" parent="Entities/DynamicEntity/Hostiles" unique_id=714028336 instance=ExtResource("2_ss0ul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.679201, 6.8195753, -1.2114401)
+gravity = null
+move_speed = null
+entity_type = null
