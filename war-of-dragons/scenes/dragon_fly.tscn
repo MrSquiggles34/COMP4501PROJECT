@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_l188x"]
 [ext_resource type="PackedScene" uid="uid://m6m40jrs03uk" path="res://art/dragon/dragon_fly.glb" id="2_1vbrm"]
-[ext_resource type="Script" uid="uid://l4hu0i6sk18k" path="res://scripts/dragon_fly.gd" id="2_a2tag"]
+[ext_resource type="Script" uid="uid://dcat3l0c3w7mf" path="res://scripts/dragon_fly.gd" id="2_a2tag"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_l188x")]
 script = ExtResource("2_a2tag")

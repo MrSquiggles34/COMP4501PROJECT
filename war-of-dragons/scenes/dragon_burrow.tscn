@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bc0y51golyius"]
 
 [ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_idl5n"]
-[ext_resource type="Script" uid="uid://mm8o62h1fgnr" path="res://scripts/dragon_burrow.gd" id="2_7nuoc"]
+[ext_resource type="Script" uid="uid://beo7gv48msvqp" path="res://scripts/dragon_burrow.gd" id="2_7nuoc"]
 [ext_resource type="PackedScene" uid="uid://b84tqecw7qfca" path="res://art/dragon/dragon_burrow.glb" id="2_c3jej"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_idl5n")]

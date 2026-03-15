@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_bbi3f"]
 [ext_resource type="PackedScene" uid="uid://burqbdniu6qax" path="res://art/hostile/mushroom.glb" id="2_0a6an"]
-[ext_resource type="Script" uid="uid://dregqqwpkkqo3" path="res://scripts/hostile_mushroom.gd" id="2_e7cl0"]
+[ext_resource type="Script" uid="uid://m3rbt4bravri" path="res://scripts/hostile_mushroom.gd" id="2_e7cl0"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_bbi3f")]
 script = ExtResource("2_e7cl0")

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_g724p"]
 [ext_resource type="PackedScene" uid="uid://c6fgl1tx20jon" path="res://art/hostile/golem.glb" id="2_fopbw"]
-[ext_resource type="Script" uid="uid://ir2wt4fcbtcd" path="res://scripts/hostile_golem.gd" id="2_o15bm"]
+[ext_resource type="Script" uid="uid://c2oygfhuvpq5" path="res://scripts/hostile_golem.gd" id="2_o15bm"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_g724p")]
 script = ExtResource("2_o15bm")
