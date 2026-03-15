@@ -8,7 +8,8 @@ var target: Collectible = null
 func _ready():
 	super._ready()
 	$Area3D.body_entered.connect(_on_body_entered)
-	#Global.base = self
+	Global.base = self
+	print("Base registered: ", self)
 	
 	entity_type = EntityType.BASE
 	money = 0 #can set this for starting currency
@@ -19,10 +20,14 @@ func _process(delta):
 	pass
 
 func collect(target):
-	money += target.getvalue() #check to see if there is a collectible for the base to collect nearby
+	money += target.getValue() #check to see if there is a collectible for the base to collect nearby
 	target.queue_free() #delete object
+	target = null
 	
 func _on_body_entered(target):
 	if target is Entity:
 		if target.entity_type == Entity.EntityType.COLLECTIBLE:
 			collect(target)
+
+func _enter_tree():
+	Global.base = self
