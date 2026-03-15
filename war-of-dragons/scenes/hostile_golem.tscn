@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://6fyc27tue762"]
+
+[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_g724p"]
+[ext_resource type="PackedScene" uid="uid://c6fgl1tx20jon" path="res://art/hostile/golem.glb" id="2_fopbw"]
+
+[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_g724p")]
+
+[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=1073863588 instance=ExtResource("2_fopbw")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.50272477, 0)
