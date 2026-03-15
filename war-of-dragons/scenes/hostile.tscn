@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cser0io6hhouf"]
 
 [ext_resource type="Script" uid="uid://br8p3vqdko155" path="res://scripts/hostile.gd" id="1_y84sh"]
-[ext_resource type="PackedScene" uid="uid://gqijx1wafox6" path="res://art/hostile/slime.glb" id="2_u7gvj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u7gvj"]
 
@@ -9,9 +8,6 @@
 script = ExtResource("1_y84sh")
 
 [node name="Model" type="Node3D" parent="." unique_id=1905496790]
-
-[node name="Sketchfab_Scene" parent="Model" unique_id=1954716379 instance=ExtResource("2_u7gvj")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5559611, -0.46715602)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1615334081]
 

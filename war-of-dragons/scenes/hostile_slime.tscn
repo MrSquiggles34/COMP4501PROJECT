@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://0sqk6uasyi5q"]
+
+[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_osh1a"]
+[ext_resource type="PackedScene" uid="uid://gqijx1wafox6" path="res://art/hostile/slime.glb" id="2_biv4c"]
+
+[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_osh1a")]
+
+[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=688971530 instance=ExtResource("2_biv4c")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.45978057, -0.50641745)
