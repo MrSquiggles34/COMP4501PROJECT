@@ -1,5 +1,5 @@
 class_name Base
-extends DynamicEntity
+extends Entity
 
 var money
 var target: Collectible = null

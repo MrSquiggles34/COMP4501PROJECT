@@ -13,7 +13,6 @@ albedo_color = Color(1, 1, 0.0901961, 1)
 
 [node name="Base" type="CharacterBody3D" unique_id=2059206151]
 script = ExtResource("1_y5r8t")
-move_speed = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1132134919]
 mesh = SubResource("CylinderMesh_7kl5s")
