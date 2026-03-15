@@ -32,9 +32,13 @@ func _process(delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+	if dragon_type != DragonType.FLY:
+		if not is_on_floor():
+			velocity.y -= gravity * delta
+		else:
+			velocity.y = 0
 	else:
+		# Flying dragons ignore gravity
 		velocity.y = 0
 	
 	#for when in an idle or moving state and a collectible body has entered into dragons range
@@ -99,14 +103,24 @@ func move_to(target: Vector3) -> void:
 	
 func _process_movement(delta: float):
 	# navigation Movement
-	if not agent.is_navigation_finished():
+	if agent.is_navigation_finished():
+		velocity.x = 0
+		velocity.z = 0
+		set_state(DragonState.IDLE)
+		return
+	elif not agent.is_navigation_finished():
 		var next_position: Vector3 = agent.get_next_path_position()
 		var direction: Vector3 = next_position - global_position
 		
-		direction.y = 0
+		if dragon_type == DragonType.GROUND or dragon_type == DragonType.BURROW:
+			direction.y = 0  
 		
 		if direction.length() > 0.1:
 			direction = direction.normalized()
+			
+			# rotate dragon to face movement direction
+			look_at(global_position + direction, Vector3.UP)
+			
 			velocity.x = direction.x * move_speed
 			velocity.z = direction.z * move_speed
 		else:

@@ -8,4 +8,7 @@
 script = ExtResource("2_c74kk")
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=688971530 instance=ExtResource("2_biv4c")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.45978057, -0.50641745)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.45978057, -0.50641745)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5585687, 0.47358656)

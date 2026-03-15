@@ -6,6 +6,9 @@
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_11u0i")]
 script = ExtResource("2_tyo3d")
+hostile_type = 2
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=377258151 instance=ExtResource("2_2xk0l")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 2.126451, 0)
