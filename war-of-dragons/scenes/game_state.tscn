@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://scripts/game_state.gd" id="1_ukbay"]
 [ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://scenes/map_system.tscn" id="2_018ao"]
 [ext_resource type="Script" uid="uid://cibcr6l8est7x" path="res://scripts/selection_box.gd" id="4_gu6ud"]
+[ext_resource type="PackedScene" uid="uid://cx0nuiv5iv6r" path="res://scenes/base.tscn" id="5_0ebsy"]
 
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
@@ -62,7 +63,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Quit to Main Menu"
+text = "Save and Quit"
 
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
@@ -90,6 +91,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_gu6ud")
+
+[node name="Base" parent="." unique_id=871664748 instance=ExtResource("5_0ebsy")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 3.431, 5, 63.106)
 
 [node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
 

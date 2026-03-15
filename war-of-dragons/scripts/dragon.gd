@@ -9,7 +9,10 @@ var state: DragonState = DragonState.IDLE
 # Attack Parameters
 var attack_target: Hostile = null
 var attack_distance: float = 2.0  
+var collectible_target: Collectible = null
+var collect_distance: float = 2.0
 var bump_speed: float = 10.0
+var home_base: Base
 
 const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible scene to spawn collectibles when enemies die
 
@@ -17,6 +20,7 @@ const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible s
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.DRAGON
+	#home_base = Global.base
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -47,10 +51,11 @@ func _physics_process(delta: float) -> void:
 		
 		DragonState.APPROACHING:
 			# Target was destroyed
-			if not attack_target or not is_instance_valid(attack_target):
-				attack_target = null
-				set_state(DragonState.IDLE)
-			else:
+
+			if  attack_target and is_instance_valid(attack_target):
+				print("HERE2")
+							   
+		
 				# Move towards the target
 				agent.target_position = attack_target.global_position
 				_process_movement(delta)
@@ -58,13 +63,29 @@ func _physics_process(delta: float) -> void:
 				# Switch to ATTACKING once close
 				if global_position.distance_to(attack_target.global_position) <= attack_distance:
 					set_state(DragonState.ATTACKING)
+				
+				
+			elif collectible_target and is_instance_valid(collectible_target):
+				agent.target_position = collectible_target.global_position
+				_process_movement(delta)
+				
+				# Switch to CARRYING once close
+				# also potentially handled by the on_body_entered, this method may be preferable instead
+				if global_position.distance_to(collectible_target.global_position) <= collect_distance:
+					set_state(DragonState.CARRYING)
+			else:
+				print ("HERE3")
+				attack_target = null
+				collectible_target = null
+				set_state(DragonState.IDLE)
 			
 		DragonState.ATTACKING:
+			print("HERE4")
 			_process_attack(delta)
 			
 		DragonState.CARRYING:
-			
-			pass
+			print("HERE5")
+			_process_carrying(delta)
 
 	move_and_slide()
 	
@@ -98,6 +119,15 @@ func attack(target: Hostile):
 	# Move toward the enemy first
 	agent.target_position = target.global_position
 	set_state(DragonState.APPROACHING)
+	
+func carry(target: Collectible):
+	if not target or not is_instance_valid(target):
+		return
+	collectible_target = target
+	
+	# Move toward the enemy first
+	agent.target_position = target.global_position
+	set_state(DragonState.APPROACHING)
 
 func _process_attack(delta: float):
 	if not attack_target or not is_instance_valid(attack_target):
@@ -126,7 +156,16 @@ func _process_attack(delta: float):
 		
 		set_state(DragonState.IDLE)
 		
-		
+func _process_carrying(delta):
+	#this function, once a dragon is carrying a collectible will automattically start moving it back to the base
+	if not home_base:
+		return
+	agent.target_position = home_base.global_position
+	_process_movement(delta)
+	
+	if global_position.distance_to(home_base.global_position) < collect_distance:
+		home_base.collect(collectible_target)
+	
 # Change the state of the dragon & print
 func set_state(new_state: DragonState) -> void:
 	if state == new_state:
@@ -143,7 +182,3 @@ func state_to_string(s: DragonState) -> String:
 		DragonState.ATTACKING: return "ATTACKING"
 		DragonState.CARRYING: return "CARRYING"
 	return "UNKNOWN"
-	
-func _on_body_entered(target):
-	if target.entity_type == Entity.EntityType.COLLECTIBLE:
-		set_state(DragonState.CARRYING)

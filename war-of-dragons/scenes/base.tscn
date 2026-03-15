@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cx0nuiv5iv6r"]
+
+[ext_resource type="Script" uid="uid://dwxawapqsuedq" path="res://scripts/Base.gd" id="1_y5r8t"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7kl5s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0yrqj"]
+albedo_color = Color(1, 1, 0.0901961, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jf8fc"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ova01"]
+
+[node name="Base" type="CharacterBody3D" unique_id=2059206151]
+script = ExtResource("1_y5r8t")
+move_speed = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1132134919]
+mesh = SubResource("CylinderMesh_7kl5s")
+surface_material_override/0 = SubResource("StandardMaterial3D_0yrqj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=429769038]
+shape = SubResource("CylinderShape3D_jf8fc")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=524612831]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+
+[node name="AreaSensor" type="CollisionShape3D" parent="Area3D" unique_id=858336222]
+shape = SubResource("CylinderShape3D_ova01")
