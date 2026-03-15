@@ -23,7 +23,6 @@ const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible s
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.DRAGON
-	#home_base = Global.base
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,9 +59,6 @@ func _physics_process(delta: float) -> void:
 			# Target was destroyed
 
 			if  attack_target and is_instance_valid(attack_target):
-				print("HERE2")
-							   
-		
 				# Move towards the target
 				agent.target_position = attack_target.global_position
 				_process_movement(delta)
@@ -81,17 +77,15 @@ func _physics_process(delta: float) -> void:
 				if global_position.distance_to(collectible_target.global_position) <= collect_distance:
 					set_state(DragonState.CARRYING)
 			else:
-				print ("HERE3")
 				attack_target = null
 				collectible_target = null
 				set_state(DragonState.IDLE)
 			
 		DragonState.ATTACKING:
-			print("HERE4")
 			_process_attack(delta)
 			
 		DragonState.CARRYING:
-			print("HERE5")
+			agent.target_position = home_base.global_position #set position to go to to be thse base, only need to calculate once
 			_process_carrying(delta)
 
 	move_and_slide()
@@ -102,13 +96,18 @@ func move_to(target: Vector3) -> void:
 	agent.target_position = target
 	
 func _process_movement(delta: float):
+	if not home_base: #set this as early as possible, aka when moving for the first time... re sets every frame used but that can be fixed later
+		home_base = Global.base #set the global reference to base
+		if not home_base:
+			return
+			
 	# navigation Movement
 	if agent.is_navigation_finished():
 		velocity.x = 0
 		velocity.z = 0
 		set_state(DragonState.IDLE)
 		return
-	elif not agent.is_navigation_finished():
+	else:
 		var next_position: Vector3 = agent.get_next_path_position()
 		var direction: Vector3 = next_position - global_position
 		
@@ -164,6 +163,7 @@ func _process_attack(delta: float):
 		
 		#spawn collectible
 		var collectible = CollectibleScene.instantiate()
+		collectible.setValue(50.0)
 		var coll_container = get_node_or_null("../../../Collectibles")
 		if coll_container:
 			coll_container.add_child(collectible)
@@ -174,23 +174,27 @@ func _process_attack(delta: float):
 		set_state(DragonState.IDLE)
 		
 func _process_carrying(delta):
-	#this function, once a dragon is carrying a collectible will automattically start moving it back to the base
-	if not home_base:
-		return
-	agent.target_position = home_base.global_position
 	_process_movement(delta)
 	
-	if global_position.distance_to(home_base.global_position) < collect_distance:
-		home_base.collect(collectible_target)
+	if collectible_target:
+		collectible_target.global_position = global_position + Vector3(0, 1, 0)
+	
+	if agent.is_navigation_finished():
+		if collectible_target:
+			#home_base.collect(collectible_target) #this is already done with the base on body enter
+			#collectible_target.queue_free()
+			collectible_target = null
+		set_state(DragonState.IDLE)
 	
 # Change the state of the dragon & print
 func set_state(new_state: DragonState) -> void:
 	if state == new_state:
 		return
 	
+	
 	print(name, " state change: ", state_to_string(state), " -> ", state_to_string(new_state))
 	state = new_state
-
+	
 func state_to_string(s: DragonState) -> String:
 	match s:
 		DragonState.IDLE: return "IDLE"
