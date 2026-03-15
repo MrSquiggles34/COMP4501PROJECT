@@ -2,8 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_11u0i"]
 [ext_resource type="PackedScene" uid="uid://k6arqbb3cqxn" path="res://art/hostile/fly_trap.glb" id="2_2xk0l"]
+[ext_resource type="Script" uid="uid://demoig6juomqy" path="res://scripts/hostile_flytrap.gd" id="2_tyo3d"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_11u0i")]
+script = ExtResource("2_tyo3d")
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=377258151 instance=ExtResource("2_2xk0l")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)

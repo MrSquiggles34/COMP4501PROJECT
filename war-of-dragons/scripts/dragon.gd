@@ -2,8 +2,11 @@ class_name Dragon
 extends DynamicEntity
 
 @export var gravity: float = 9.8
+@export var dragon_type: DragonType
 
+enum DragonType { GROUND, FLY, BURROW }
 enum DragonState { IDLE, MOVING, APPROACHING, ATTACKING, CARRYING }
+
 var state: DragonState = DragonState.IDLE
 
 # Attack Parameters

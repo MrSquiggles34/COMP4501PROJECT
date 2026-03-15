@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://dw880124lcimr"]
 
 [ext_resource type="Script" uid="uid://dnuve6ggjwxap" path="res://scripts/map_system.gd" id="1_o3q63"]
-[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="2_ss0ul"]
-[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="2_xypqd"]
 [ext_resource type="Terrain3DAssets" uid="uid://cpavxe6huecau" path="res://scenes/new_terrain_3d_assets.res" id="2_yuuxl"]
 [ext_resource type="PackedScene" uid="uid://bc0y51golyius" path="res://scenes/dragon_burrow.tscn" id="3_uqwi6"]
+[ext_resource type="PackedScene" uid="uid://djdh7mjmp0gl4" path="res://scenes/dragon_fly.tscn" id="4_6je46"]
+[ext_resource type="PackedScene" uid="uid://dvefr45ja6te8" path="res://scenes/dragon_ground.tscn" id="5_mmwm2"]
+[ext_resource type="PackedScene" uid="uid://6fyc27tue762" path="res://scenes/hostile_golem.tscn" id="6_bguoe"]
+[ext_resource type="PackedScene" uid="uid://rh40otj57fqr" path="res://scenes/hostile_mushroom.tscn" id="7_jpwmp"]
+[ext_resource type="PackedScene" uid="uid://0sqk6uasyi5q" path="res://scenes/hostile_slime.tscn" id="8_f6vr5"]
+[ext_resource type="PackedScene" uid="uid://bhiyj4bj5qtjq" path="res://scenes/hostile_flytrap.tscn" id="9_pq012"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xypqd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -83,7 +87,6 @@ data_directory = "res://scenes/terrain"
 material = SubResource("Terrain3DMaterial_6je46")
 assets = ExtResource("2_yuuxl")
 collision_mode = 3
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.049152374)
 top_level = true
 metadata/_edit_lock_ = true
 
@@ -97,25 +100,22 @@ metadata/_edit_lock_ = true
 
 [node name="DragonBurrow" parent="Entities/DynamicEntity/Dragons" unique_id=1023116470 instance=ExtResource("3_uqwi6")]
 
-[node name="Dragon2" parent="Entities/DynamicEntity/Dragons" unique_id=2017704614 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.39692, 2, -10.383576)
+[node name="DragonFly" parent="Entities/DynamicEntity/Dragons" unique_id=967488521 instance=ExtResource("4_6je46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1513758, 2.2935982, 0)
 
-[node name="TestGuy" parent="Entities/DynamicEntity/Dragons" unique_id=125636328 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.976395, 2.9999993, 41.727722)
-
-[node name="TestBro" parent="Entities/DynamicEntity/Dragons" unique_id=477278707 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.939713, 3, -6.635845)
-
-[node name="Tester" parent="Entities/DynamicEntity/Dragons" unique_id=1711927600 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.47869, 18.31504, -4.2184615)
-
-[node name="TestMan" parent="Entities/DynamicEntity/Dragons" unique_id=1175293253 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.011904, 7.58595, -2.5712986)
-
-[node name="TestWorker" parent="Entities/DynamicEntity/Dragons" unique_id=1447889762 instance=ExtResource("2_xypqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.428, 2, 1.199)
+[node name="DragonGround" parent="Entities/DynamicEntity/Dragons" unique_id=1102413407 instance=ExtResource("5_mmwm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7446847, 0, 0)
 
 [node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
 
-[node name="BadGuy" parent="Entities/DynamicEntity/Hostiles" unique_id=714028336 instance=ExtResource("2_ss0ul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.679201, 6.8195753, -1.2114401)
+[node name="HostileGolem" parent="Entities/DynamicEntity/Hostiles" unique_id=938163978 instance=ExtResource("6_bguoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -21)
+
+[node name="HostileMushroom" parent="Entities/DynamicEntity/Hostiles" unique_id=1113501833 instance=ExtResource("7_jpwmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -29)
+
+[node name="HostileSlime" parent="Entities/DynamicEntity/Hostiles" unique_id=260435812 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -37)
+
+[node name="HostileFlytrap" parent="Entities/DynamicEntity/Hostiles" unique_id=971431266 instance=ExtResource("9_pq012")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -25)

@@ -2,6 +2,10 @@ class_name Hostile
 extends DynamicEntity
 
 @export var gravity: float = 9.8
+@export var hostile_type: HostileType
+
+enum HostileType { MUSHROOM, SLIME, FLYTRAP, GOLEM }
+
 var health
 
 # Called when the node enters the scene tree for the first time.

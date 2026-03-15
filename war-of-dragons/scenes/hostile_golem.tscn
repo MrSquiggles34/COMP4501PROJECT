@@ -2,8 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_g724p"]
 [ext_resource type="PackedScene" uid="uid://c6fgl1tx20jon" path="res://art/hostile/golem.glb" id="2_fopbw"]
+[ext_resource type="Script" uid="uid://ir2wt4fcbtcd" path="res://scripts/hostile_golem.gd" id="2_o15bm"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_g724p")]
+script = ExtResource("2_o15bm")
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=1073863588 instance=ExtResource("2_fopbw")]
 transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)

@@ -36,24 +36,18 @@ func start_new_game() -> void:
 	
 	# We remove all predefined dragons except the first one
 	var all_dragons = dragons_container.get_children()
-	if all_dragons.size() > 0:
-		var initial_dragon = all_dragons[0]
-		# Position it at a central spot
-		initial_dragon.global_position = Vector3(-30, 6, 20)
+	if all_dragons.size() > 3:
 		
 		# Queue remaining dragons for deletion
-		for i in range(1, all_dragons.size()):
+		for i in range(3, all_dragons.size()):
 			all_dragons[i].queue_free()
 	
 	# We remove all predefined hostiles except the first one
 	var all_hostiles = hostiles_container.get_children()
-	if all_hostiles.size() > 0:
-		var initial_hostile = all_hostiles[0]
-		# Position it at a central spot
-		initial_hostile.global_position = Vector3(-30, 6, -20)
+	if all_hostiles.size() > 4:
 		
 		# Queue remaining hostiles for deletion
-		for i in range(1, all_hostiles.size()):
+		for i in range(4, all_hostiles.size()):
 			all_hostiles[i].queue_free()
 
 func _notification(what: int) -> void:
@@ -78,17 +72,29 @@ func save_game() -> void:
 			if json.parse(text) == OK and typeof(json.data) == TYPE_DICTIONARY:
 				save_data = json.data
 				
-	save_data["dragon_count"] = 0
-	save_data["hostile_count"] = 0
+	save_data["dragons"] = []
+	save_data["hostiles"] = []
 	
 	for entity in entities:
 		if not is_instance_valid(entity) or entity.is_queued_for_deletion():
 			continue
 			
-		if entity.entity_type == Entity.EntityType.DRAGON:
-			save_data["dragon_count"] += 1
-		elif entity.entity_type == Entity.EntityType.HOSTILE: 
-			save_data["hostile_count"] += 1
+		if entity is Dragon:
+			var dragon_data = {
+				"type": Dragon.DragonType.keys()[entity.dragon_type],
+				"x": entity.global_position.x,
+				"y": entity.global_position.y,
+				"z": entity.global_position.z
+			}
+			save_data["dragons"].append(dragon_data)
+		elif entity is Hostile:
+			var hostile_data = {
+				"type": Hostile.HostileType.keys()[entity.hostile_type],
+				"x": entity.global_position.x,
+				"y": entity.global_position.y,
+				"z": entity.global_position.z
+			}
+			save_data["hostiles"].append(hostile_data)
 			
 	var json_string = JSON.stringify(save_data)
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -125,29 +131,51 @@ func load_game() -> void:
 		child.queue_free()
 		
 	# We need to spawn units. We need the Dragon and Hostile scenes.
-	var dragon_scene = load("res://scenes/dragon.tscn")
-	var hostile_scene = load("res://scenes/hostile.tscn")
+	var dragon_fly_scene = load("res://scenes/dragon_fly.tscn")
+	var dragon_burrow_scene = load("res://scenes/dragon_burrow.tscn")
+	var dragon_ground_scene = load("res://scenes/dragon_ground.tscn")
+	var hostile_flytrap_scene = load("res://scenes/hostile_flytrap.tscn")
+	var hostile_golem_scene = load("res://scenes/hostile_golem.tscn")
+	var hostile_slime_scene = load("res://scenes/hostile_slime.tscn")
+	var hostile_mushroom_scene = load("res://scenes/hostile_mushroom.tscn")
+	
 	var collectible_scene = load("res://scenes/collectible.tscn")
 	
-	if save_data.has("dragon_count"):
-		var count = save_data["dragon_count"]
-		for i in range(count):
+	if save_data.has("dragons"):
+		for dragon_data in save_data["dragons"]:
+			var dragon_scene
+			
+			match dragon_data["type"]:
+				"GROUND":
+					dragon_scene = dragon_ground_scene
+				"FLY":
+					dragon_scene = dragon_fly_scene
+				"BURROW":
+					dragon_scene = dragon_burrow_scene
+					
 			var new_dragon = dragon_scene.instantiate()
 			dragons_container.add_child(new_dragon)
-			# Spawn in a grid near the start area (-30, 6, 20)
-			var row = i / 5
-			var col = i % 5
-			new_dragon.global_position = Vector3(-30.0 + (col * 2.0), 6, 20.0 + (row * 2.0))
 			
-	if save_data.has("hostile_count"):
-		var count = save_data["hostile_count"]
-		for i in range(count):
+			new_dragon.global_position = Vector3(dragon_data["x"], dragon_data["y"], dragon_data["z"])
+			
+	if save_data.has("hostiles"):
+		for hostile_data in save_data["hostiles"]:
+			var hostile_scene
+			
+			match hostile_data["type"]:
+				"MUSHROOM":
+					hostile_scene = hostile_mushroom_scene
+				"SLIME":
+					hostile_scene = hostile_slime_scene
+				"FLYTRAP":
+					hostile_scene = hostile_flytrap_scene
+				"GOLEM":
+					hostile_scene = hostile_golem_scene
+					
 			var new_hostile = hostile_scene.instantiate()
 			hostiles_container.add_child(new_hostile)
-			# Spawn in a grid offset from the dragons
-			var row = i / 5
-			var col = i % 5
-			new_hostile.global_position = Vector3(col * 2.0 - 4.0, 6, -10.0 - row * 2.0)
+			
+			new_hostile.global_position = Vector3(hostile_data["x"], hostile_data["y"], hostile_data["z"])
 			
 	if save_data.has("collectibles"):
 		for c_data in save_data["collectibles"]:
