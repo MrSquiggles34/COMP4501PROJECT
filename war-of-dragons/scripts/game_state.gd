@@ -239,6 +239,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				for entity in selected_entities:
 					if entity is Dragon:
 						entity.attack(clicked_entity)
+			elif clicked_entity is Collectible:
+				#move dragons to collectible to start carrying
+				for entity in selected_entities:
+					if entity is Dragon:
+						entity.carry(clicked_entity)
 			else:
 				# Regular move if clicked on ground
 				var unit_count = selected_entities.size()
