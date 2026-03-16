@@ -96,18 +96,13 @@ func move_to(target: Vector3) -> void:
 	agent.target_position = target
 	
 func _process_movement(delta: float):
-	if not home_base: #set this as early as possible, aka when moving for the first time... re sets every frame used but that can be fixed later
-		home_base = Global.base #set the global reference to base
-		if not home_base:
-			return
-			
 	# navigation Movement
 	if agent.is_navigation_finished():
 		velocity.x = 0
 		velocity.z = 0
 		set_state(DragonState.IDLE)
 		return
-	else:
+	elif not agent.is_navigation_finished():
 		var next_position: Vector3 = agent.get_next_path_position()
 		var direction: Vector3 = next_position - global_position
 		
@@ -117,8 +112,12 @@ func _process_movement(delta: float):
 		if direction.length() > 0.1:
 			direction = direction.normalized()
 			
+			var up_vector := Vector3.UP
+			if abs(direction.y) > 0.999:
+				up_vector = Vector3.FORWARD
+				
 			# rotate dragon to face movement direction
-			look_at(global_position + direction, Vector3.UP)
+			look_at(global_position + direction, up_vector)
 			
 			velocity.x = direction.x * move_speed
 			velocity.z = direction.z * move_speed
