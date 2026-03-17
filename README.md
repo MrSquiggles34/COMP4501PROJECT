@@ -1,7 +1,4 @@
 COMP 4501 Project
-Andy Li - 101264096
-Victor Rustan - 101202436
-Somtochukwu Obidike-Ikenna - 101287021
 
 Game Controls:
 left click to singly select a unit
@@ -10,7 +7,7 @@ right click once units are selected to have them move to that location or intera
 w, a, s, d strafe the camera
 scrolling in and out on the mouse wheel will zoom the camera
 
-Requirements and how our project fulfills them
+Requirements
 1. 3D rendering based on an isometric view using appropriate illumination and shadows.
 	This is done in the setup of how our games lighting and camera interact with the world. A omni directional light sources casts light and shadows that are occluded by objects. The camera code is made in such a way that it keeps an isometric camera angle like other real time strategy games.
 
