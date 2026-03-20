@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://rh40otj57fqr" path="res://scenes/hostile_mushroom.tscn" id="7_jpwmp"]
 [ext_resource type="PackedScene" uid="uid://0sqk6uasyi5q" path="res://scenes/hostile_slime.tscn" id="8_f6vr5"]
 [ext_resource type="PackedScene" uid="uid://bhiyj4bj5qtjq" path="res://scenes/hostile_flytrap.tscn" id="9_pq012"]
+[ext_resource type="PackedScene" uid="uid://b0xscivfbc3ix" path="res://scenes/water.tscn" id="12_pq012"]
 
 [sub_resource type="Curve" id="Curve_jpwmp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.12, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74), 0.0, 0.0, 0, 0]
@@ -122,6 +123,9 @@ assets = ExtResource("2_yuuxl")
 collision_mode = 3
 top_level = true
 metadata/_edit_lock_ = true
+
+[node name="lake" parent="NavigationRegion3D" unique_id=769643828 instance=ExtResource("12_pq012")]
+transform = Transform3D(6.045, 0, 0, 0, 6.045, 0, 0, 0, 6.045, 91.63225, 0.9632139, -177.21425)
 
 [node name="Entities" type="Node3D" parent="." unique_id=1583558056]
 
