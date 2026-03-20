@@ -12,3 +12,8 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.008374095, 0.9817647, 0)
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1891627059) index="0" unique_id=1606187762 instance=ExtResource("2_tautj")]
 transform = Transform3D(-20, 0, -1.7484556e-06, 0, 20, 0, 1.7484556e-06, 0, -20, 0, 0, 0)
+
+[node name="AttackTimer" type="Timer" parent="." index="3" unique_id=346425436]
+wait_time = 0.75
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

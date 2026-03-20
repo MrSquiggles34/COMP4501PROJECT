@@ -7,9 +7,6 @@ height = 1.0927734
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1023116470]
 script = ExtResource("1_vfigm")
-gravity = null
-move_speed = null
-entity_type = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=575317902]
 shape = SubResource("CapsuleShape3D_k4y1u")

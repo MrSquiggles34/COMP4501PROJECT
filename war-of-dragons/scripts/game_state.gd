@@ -187,7 +187,7 @@ func load_game() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-func _unhandled_key_input(event: InputEvent) -> void:
+func _key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_interface"):
 		game_interface.visible = not game_interface.visible
 		if game_interface.visible:
@@ -224,7 +224,7 @@ func get_all_entities(node: Node) -> Array[Entity]:
 			result += get_all_entities(child)  
 	return result
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			selection_rect.drag_start = event.position
