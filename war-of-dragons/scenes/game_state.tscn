@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://scripts/game_state.gd" id="1_ukbay"]
 [ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://scenes/map_system.tscn" id="2_018ao"]
 [ext_resource type="Script" uid="uid://cibcr6l8est7x" path="res://scripts/selection_box.gd" id="4_gu6ud"]
-[ext_resource type="PackedScene" uid="uid://cx0nuiv5iv6r" path="res://scenes/base.tscn" id="5_0ebsy"]
+[ext_resource type="PackedScene" uid="uid://dtsqjgug2ee72" path="res://scenes/ui.tscn" id="6_2cevy"]
 
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
@@ -71,6 +71,7 @@ text = "Save and Quit"
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -32.22888, 20, 35.06301)
 script = ExtResource("1_018ao")
 move_speed = 50.0
+zoom_sensitivity = 100.0
 zoom_out_bound = 140.0
 
 [node name="PlayerCamera" type="Camera3D" parent="PlayerCameraNode/Marker3D" unique_id=1093098968]
@@ -92,9 +93,8 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_gu6ud")
 
-[node name="Base" parent="." unique_id=871664748 instance=ExtResource("5_0ebsy")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 3.431, 5, 63.106)
-
 [node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
+
+[node name="UI" parent="." unique_id=1807322550 instance=ExtResource("6_2cevy")]
 
 [connection signal="pressed" from="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]

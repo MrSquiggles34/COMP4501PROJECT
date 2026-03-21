@@ -3,3 +3,4 @@ extends Hostile
 
 func _ready():
 	hostile_type = HostileType.GOLEM
+	health =50

@@ -11,11 +11,12 @@ var state: DragonState = DragonState.IDLE
 
 # Attack Parameters
 var attack_target: Hostile = null
-var attack_distance: float = 2.0  
+var attack_distance: float = 5.0  
 var collectible_target: Collectible = null
-var collect_distance: float = 2.0
+var collect_distance: float = 5.0
 var bump_speed: float = 10.0
 var home_base: Base
+var damage: float
 
 const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible scene to spawn collectibles when enemies die
 
@@ -23,6 +24,8 @@ const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible s
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.DRAGON
+	$AttackTimer.timeout.connect(Callable(self, "_on_attack_timer_timeout"))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,6 +33,8 @@ func _process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if not home_base:
+		home_base = Global.base
 	
 	if dragon_type != DragonType.FLY:
 		if not is_on_floor():
@@ -98,16 +103,16 @@ func move_to(target: Vector3) -> void:
 func _process_movement(delta: float):
 	# navigation Movement
 	if agent.is_navigation_finished():
-		velocity.x = 0
-		velocity.z = 0
+		print("navigation finished")
 		set_state(DragonState.IDLE)
 		return
-	elif not agent.is_navigation_finished():
+	else:
+		#print("navigation not finished")
 		var next_position: Vector3 = agent.get_next_path_position()
 		var direction: Vector3 = next_position - global_position
 		
-		if dragon_type == DragonType.GROUND or dragon_type == DragonType.BURROW:
-			direction.y = 0  
+		#if dragon_type == DragonType.GROUND or dragon_type == DragonType.BURROW:
+		direction.y = 0  
 		
 		if direction.length() > 0.1:
 			direction = direction.normalized()
@@ -148,6 +153,7 @@ func _process_attack(delta: float):
 	if not attack_target or not is_instance_valid(attack_target):
 		set_state(DragonState.IDLE)
 		attack_target = null
+		$AttackTimer.stop()
 		return
 
 	var direction = (attack_target.global_position - global_position).normalized()
@@ -155,10 +161,50 @@ func _process_attack(delta: float):
 
 	# Check if close enough to attack (right now single hit)
 	if global_position.distance_to(attack_target.global_position) < attack_distance:
+		if $AttackTimer.is_stopped():
+			$AttackTimer.emit_signal("timeout")
+			$AttackTimer.start($AttackTimer.wait_time)
+			
+		
+func _process_carrying(delta):
+	_process_movement(delta)
+	
+	if collectible_target:
+		collectible_target.global_position = global_position + Vector3(0, 1, 0)
+	
+	#if agent.position - home_base.position <= 2.0:
+		#if collectible_target:
+			#home_base.collect(collectible_target) #this is already done with the base on body enter
+			#collectible_target.queue_free()
+			#collectible_target = null
+		#set_state(DragonState.IDLE)
+		#agent.navigation_finished
+		
+	if agent.is_navigation_finished():
+		print("trying to collect through process_carrying")
+		if collectible_target:
+			home_base.collect(collectible_target) #this is already done with the base on body enter
+			collectible_target.queue_free()
+			collectible_target = null
+		set_state(DragonState.IDLE)
+		
+
+func _on_attack_timer_timeout():
+	print("timing out")
+	
+	if not attack_target or not is_instance_valid(attack_target):
+		$AttackTimer.stop()
+		return
+		
+	attack_target.health -= damage
+	print(attack_target.health)
+	
+	if attack_target.health <= 0:
 		var drop_position = attack_target.global_position
 		
-		attack_target.queue_free() #kill hostile 
+		attack_target.queue_free()
 		attack_target = null
+		$AttackTimer.stop()
 		
 		#spawn collectible
 		var collectible = CollectibleScene.instantiate()
@@ -169,20 +215,6 @@ func _process_attack(delta: float):
 		else:
 			get_parent().add_child(collectible)
 		collectible.global_position = drop_position #drop collectible at the position of the enemy
-		
-		set_state(DragonState.IDLE)
-		
-func _process_carrying(delta):
-	_process_movement(delta)
-	
-	if collectible_target:
-		collectible_target.global_position = global_position + Vector3(0, 1, 0)
-	
-	if agent.is_navigation_finished():
-		if collectible_target:
-			#home_base.collect(collectible_target) #this is already done with the base on body enter
-			#collectible_target.queue_free()
-			collectible_target = null
 		set_state(DragonState.IDLE)
 	
 # Change the state of the dragon & print

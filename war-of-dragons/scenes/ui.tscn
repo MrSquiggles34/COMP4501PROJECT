@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dtsqjgug2ee72"]
 
+[ext_resource type="Script" uid="uid://d3ducr5ssxo5e" path="res://scripts/ui.gd" id="1_nt7q6"]
+
 [node name="UI" type="Control" unique_id=1807322550]
 layout_mode = 3
 anchors_preset = 15
@@ -7,9 +9,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nt7q6")
 
-[node name="Label" type="Label" parent="." unique_id=1303209643]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1068469291]
 layout_mode = 0
-offset_right = 169.0
-offset_bottom = 37.0
+offset_right = 62.0
+offset_bottom = 50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=192287796]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=2141862650]
+layout_mode = 2
 text = "Money: "
+justification_flags = 161
+
+[node name="ValueLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=441832643]
+layout_mode = 2
+text = "0"
