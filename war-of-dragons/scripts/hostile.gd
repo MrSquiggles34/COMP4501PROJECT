@@ -12,6 +12,8 @@ var health
 var current_state: EnemyState
 var wander_state = preload("res://scripts/hostile_state_wander.gd").new()
 
+var dragons_container: Node = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()

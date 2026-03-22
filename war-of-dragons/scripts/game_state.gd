@@ -25,6 +25,9 @@ func initialize_game(is_loading: bool) -> void:
 		start_new_game()
 		save_game() # Automatically create save file on new game setup
 		
+	# Initialize enemy AI
+	assign_containers_to_hostiles()
+		
 	# Refresh entities list after setup or load
 	entities = get_all_entities(entities_container)
 
@@ -363,3 +366,11 @@ func clean_entities():
 			selected_entities.remove_at(i)
 		else:
 			i += 1
+
+func assign_containers_to_hostiles():
+	var dragons_container = $Map/Entities/DynamicEntity/Dragons
+	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
+
+	for hostile in hostiles_container.get_children():
+		if hostile is Hostile:
+			hostile.dragons_container = dragons_container

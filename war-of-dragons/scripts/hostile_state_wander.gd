@@ -5,7 +5,11 @@ class_name WanderState
 # Wander algorithm picks a random point within an enemy's spawn point radius in time intervals and walks to it
 @export var wander_radius: float = 5.0       
 @export var move_speed: float = 3.0           
-@export var pick_interval: float = 8.0        
+@export var pick_interval: float = 8.0      
+
+# Wander algorithm also checks a vision cone for dragons
+@export var vision_distance: float = 15.0    
+@export var vision_angle: float = 60.0       
 
 var home_position: Vector3                     
 var target_position: Vector3
@@ -31,6 +35,29 @@ func exit() -> void:
 	enemy = null
 
 func update(delta: float) -> void:
+	var dragons = enemy.dragons_container.get_children()
+	for dragon in dragons:
+		if not is_instance_valid(dragon):
+			continue
+
+		var to_dragon = dragon.global_position - enemy.global_position
+		to_dragon.y = 0
+
+		var dist_sq = to_dragon.length_squared()
+		if dist_sq > vision_distance * vision_distance:
+			continue
+
+		var forward = -enemy.transform.basis.z.normalized()
+		var angle_deg = rad_to_deg(forward.angle_to(to_dragon.normalized()))
+
+		if angle_deg <= vision_angle:
+			# valid target
+			# Switch to PursueState targeting this dragon
+			var pursue_state = preload("res://scripts/hostile_state_pursue.gd").new()
+			pursue_state.target_dragon = dragon
+			enemy.change_state(pursue_state)
+			return  
+	
 	move_towards_target(delta)
 
 func pick_new_target() -> void:
