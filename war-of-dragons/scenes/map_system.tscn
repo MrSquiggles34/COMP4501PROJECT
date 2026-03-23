@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bhiyj4bj5qtjq" path="res://scenes/hostile_flytrap.tscn" id="9_pq012"]
 [ext_resource type="PackedScene" uid="uid://b0xscivfbc3ix" path="res://scenes/water.tscn" id="12_pq012"]
 [ext_resource type="PackedScene" uid="uid://cx0nuiv5iv6r" path="res://scenes/base.tscn" id="13_0ebsy"]
+[ext_resource type="PackedScene" uid="uid://fq4oqss77re6" path="res://scenes/grass.tscn" id="14_vwvmw"]
 
 [sub_resource type="Curve" id="Curve_jpwmp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.12, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74), 0.0, 0.0, 0, 0]
@@ -129,6 +130,9 @@ metadata/_edit_lock_ = true
 
 [node name="lake" parent="NavigationRegion3D" unique_id=769643828 instance=ExtResource("12_pq012")]
 transform = Transform3D(6.045, 0, 0, 0, 6.045, 0, 0, 0, 6.045, 91.63225, 0.9632139, -177.21425)
+
+[node name="Node3D" parent="NavigationRegion3D" unique_id=994809322 instance=ExtResource("14_vwvmw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.245152, 0, 6.84455)
 
 [node name="Entities" type="Node3D" parent="." unique_id=1583558056]
 
