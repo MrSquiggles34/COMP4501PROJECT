@@ -25,16 +25,30 @@ func initialize_game(is_loading: bool) -> void:
 		start_new_game()
 		save_game() # Automatically create save file on new game setup
 		
-	# Initialize enemy AI
-	assign_containers_to_hostiles()
-		
 	# Refresh entities list after setup or load
 	entities = get_all_entities(entities_container)
 
 func start_new_game() -> void:
 	# Define beginning parameters for a new game.
+	# For example: start with only 1 Dragon unit
 	var dragons_container = $Map/Entities/DynamicEntity/Dragons
 	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
+	
+	# We remove all predefined dragons except the first one
+	var all_dragons = dragons_container.get_children()
+	if all_dragons.size() > 3:
+		
+		# Queue remaining dragons for deletion
+		for i in range(3, all_dragons.size()):
+			all_dragons[i].queue_free()
+	
+	# We remove all predefined hostiles except the first one
+	var all_hostiles = hostiles_container.get_children()
+	if all_hostiles.size() > 4:
+		
+		# Queue remaining hostiles for deletion
+		for i in range(4, all_hostiles.size()):
+			all_hostiles[i].queue_free()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -366,11 +380,3 @@ func clean_entities():
 			selected_entities.remove_at(i)
 		else:
 			i += 1
-
-func assign_containers_to_hostiles():
-	var dragons_container = $Map/Entities/DynamicEntity/Dragons
-	var hostiles_container = $Map/Entities/DynamicEntity/Hostiles
-
-	for hostile in hostiles_container.get_children():
-		if hostile is Hostile:
-			hostile.dragons_container = dragons_container

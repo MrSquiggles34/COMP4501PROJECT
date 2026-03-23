@@ -1,0 +1,236 @@
+Basic Shader Setup
+We begin with the minimal boilerplate for a spatial shader. This tells Godot it’s a 3D shader and provides empty vertex and fragment functions. The vertex function processes vertex positions, while the fragment function handles pixel coloring.
+
+The render_mode cull_disabled, depth_draw_opaque tell engine to not cull back-faces and do depth testing for opaque parts so sorting multiple grass layers will have no transparency issues.
+
+Paste following code in your shader:
+shader_type spatial;
+render_mode cull_disabled, depth_draw_opaque;
+
+void vertex() {
+}
+
+void fragment() {
+}
+
+Adding Shape Uniforms and Blade Clipping
+Now we introduce uniforms for controlling the blade shape and use a discard in the fragment to clip the quad into a grass-like form.
+
+Now first of all, we need to control the blade shape. Since we are using a quad, which has hard edges, we need to soften them and make them look like a grass blade. For this, add the uniforms just belwo the render_mode ... line and a piece of code in fragment()
+
+Add following things:
+// add these uniforms:
+uniform float blade_height_taper = 2.0;
+uniform float blade_width = 1.0;
+
+void fragment() {
+    // add this:
+    // shape
+    float center_dist = abs(UV.x - 0.5) * 2.0;
+    float shape_mask = pow(UV.y, 1.0 / blade_height_taper);
+    if (center_dist > shape_mask * blade_width) discard;
+}
+
+Uniform variables like blade_height_taper and blade_width control how the blade tapers (narrows) from base to tip and its overall width.
+
+In fragment() we calculate center_dist (distance from UV center) and shape_mask (taper curve using pow for a natural curve). Discard pixels outside the shape. This turns a rectangular quad into a tapered blade without changing the mesh geometry. The pow with a fraction creates a concave taper, wider at the base (high UV.y) and narrower at the tip (low UV.y).
+
+Adding Color Gradient
+Now we add simple color gradient in the fragment.
+
+Add following uniforms and logic:
+
+// add these uniforms:
+uniform vec4 color_top : source_color = vec4(0.667, 0.922, 0.431, 1.0);
+uniform vec4 color_bottom : source_color = vec4(0.651, 0.282, 0.0, 1.0);
+
+void fragment() {
+    // add this below the previous code:
+    // color
+    vec3 gradient = mix(color_top.rgb, color_bottom.rgb, UV.y);
+    ALBEDO = gradient;
+}
+
+Uniforms color_top and color_bottom define colors for the tip and base, with : source_color hint for color picker in Godot editor.
+In fragment(), we mix the colors based on UV.y for a vertical gradient. mix interpolates linearly, creating a smooth transition from tip color (light green) at UV.y=0.0 to base color (brownish) at UV.y=1.0. This adds color variation with height.
+
+Adding Static Blade Bend
+We introduce a static bend to make the blades curve naturally, even without wind. This makes sure it looks less stiff and more natural.
+
+Add these things to the code:
+uniform float blade_bend = 0.5;
+
+void vertex() {
+    vec3 vertex_pos = VERTEX;
+    vec3 object_right_vector = vec3(1.0, 0.0, 0.0);
+    vec3 object_forward_vector = vec3(0.0, 0.0, 1.0);
+    float height_factor = 1.0 - UV.y;
+    float bend_strength = pow(height_factor, 2.0);
+    // Static blade bend
+    vertex_pos += object_forward_vector * blade_bend * bend_strength;
+    VERTEX = vertex_pos;
+}
+
+Uniform variable blade_bend controls the strength of the forward curve.
+In vertex() we define local right and forward vectors. We also calculate height_factor (stronger at tip) and bend_strength (quadratic for smooth falloff). Finally, we offset the vertex position forward. This simulates gravity or natural curvature without animation, making grass look less stiff.
+
+Blades now curve forward, with more bend at the tips. The grass appears droopier and more realistic in a static scene.
+
+Adding Color Variation Using Noise
+Now lets add some color variation based on a noise. we will use same noise later for wind, so color variation will later be in sync with the wind.
+
+Make following changes:
+// add these uniforms:
+uniform vec3 color_variation : source_color = vec3(0.9, 0.9, 0.2);
+uniform float patch_scale = 5.0;
+uniform sampler2D wind_noise : hint_default_white;
+
+// and this varying:
+varying float v_patch;
+
+void vertex() {
+    // add this at the top of vertex:
+    vec3 world_pos = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+    // variation patch factor
+    float patch_factor = texture(wind_noise, world_pos.xz / patch_scale).r;
+    v_patch = patch_factor;
+
+    // rest of code remains same...
+}
+
+void fragment() {
+    // at the end of fragment, just below 'vec3 gradient...' line:
+    vec3 varied_color = mix(gradient, color_variation, v_patch * 0.3);
+    ALBEDO = varied_color;
+}
+
+We added a noise texture (wind_noise) that we’ll reuse later for wind, patch_scale to control how large the variation patches are and color_variation for target color tint. We also sample the noise in world space, then pass variation factor to fragment, then mix a bit of the variation color into the gradient.
+
+Grass now shows color patches and variation.
+
+Important NOTE: if you see artifacts like your grass-field having 2 regions, one shadowed and one lit,, and both separated diagonally. Then add this line on top of your fragment. Because this artifact often occurs due to normals facing away:
+    // on top of fragment(), before anything else:
+    if (!FRONT_FACING){ NORMAL = -NORMAL; }
+
+Adding Basic Wind Animation (Sway n Gusts)
+Now we bring the grass to life with wind using the same noise texture.
+
+Do following changes:
+// add these uniform variables:
+uniform vec2 wind_direction = vec2(1.0, 0.0);
+uniform float wind_texture_scale = 20.0;
+uniform float wind_speed = 0.1;
+uniform float still_sway_speed = 4.5;
+uniform float still_sway_strength = 0.1;
+uniform float gust_strength = 1.0;
+uniform float gust_frequency = 0.08;
+
+// add this varying:
+varying float v_wind_intensity;
+
+void vertex() {
+    // ... some code here ...
+    // then:
+    // add this just below the 'v_patch = patch_factor;' line in vertex():
+    // wind calculation
+    vec2 global_uv = world_pos.xz / wind_texture_scale;
+    vec2 move_uv = global_uv + (normalize(wind_direction) * TIME * wind_speed);
+    float noise_val = texture(wind_noise, move_uv).r;
+
+    float gust_mask = smoothstep(gust_frequency, 1.0, noise_val);
+
+    float idle_sway = sin(TIME * still_sway_speed + world_pos.x + world_pos.z) * still_sway_strength;
+    float flutter = sin(TIME * 20.0 + world_pos.x) * 0.1;
+    float gust_push = (gust_mask * gust_strength) + (gust_mask * flutter);
+
+    v_wind_intensity = gust_mask;
+
+    // ... some code here...
+    // then:
+    // replace line 'VERTEX = vertex_pos' with:
+    // wind mostly along local right axis
+    vec3 total_offset = object_right_vector * (idle_sway + gust_push) * bend_strength;
+    // preserve volumne/prevent stretching
+    float dist_moved = length(total_offset.xz);
+    float y_drop = dist_moved * 0.2 * bend_strength;
+    VERTEX = vertex_pos + total_offset;
+    VERTEX.y -= y_drop;
+}
+
+We added wind uniforms (speed, direction, sway strength, gust control) and sampled moving noise, now there will be gentle sway and occasional strong gusts. We also applied displacement mostly in local X (right vector) which is stronger at tips and finally passed wind intensity to fragment for later coloring.
+
+NOTE: For more calm grass, try changing the multiplied value on flutter line (above), from 0.1 to 0.01.
+
+Grass gently sways and occasionally gets hit by stronger gusts that push it sideways and our movement is stronger near the tips.
+
+Adding Player Interaction (Radial Push/Distortion)
+Make the grass bend away when the player gets close.
+
+Make following changes:
+uniform vec3 player_position = vec3(0.0);
+uniform float interaction_radius = 1.0;
+uniform float interaction_push = 1.0;
+
+
+
+void vertex() {
+    // place this at the very end of vertex():
+
+    // interaction
+    vec3 interaction_offset = vec3(0.0);
+    vec3 diff_vec = world_pos - player_position;
+    float dist_3d = length(diff_vec);
+    if (dist_3d < interaction_radius) {
+        float push_strength = smoothstep(interaction_radius, 0.0, dist_3d);
+        vec3 push_dir_flat = diff_vec;
+        push_dir_flat.y = 0.0;
+        push_dir_flat = normalize(push_dir_flat);
+        vec3 local_push_dir = mat3(inverse(MODEL_MATRIX)) * push_dir_flat;
+        interaction_offset += local_push_dir * push_strength * interaction_push * bend_strength;
+    }
+    VERTEX += interaction_offset;
+}
+
+We added player position uniform (we’ll update this from a script during gameplay), then we push blades away radially in local space based on smooth falloff on horizontal distance. In other words, a vector pointing away from player position is applied on vertex, which moves the vertex away from player position (grass on the player position will be pushed away in that vector’s direction). This push is more at the tips, and less at the base (because of bend_strength variable).
+
+Grass bends radially outward around the player,, good for footsteps or character movement.
+
+Adding Wind-based Color Highlight and Final Shading
+Last step is to make gusts visually pop and improve overall lighting.
+
+Make following additions:
+// add this verying:
+varying float v_height;
+
+void vertex() {
+    // add this at top of vertex function:
+    v_height = UV.y;
+}
+
+void fragment() {
+    // replace the entire 'color' block with the code below:
+    // i mean, replace last 3 lines of code (vec3 gradient and onward) with this:
+
+    // color
+    vec3 gradient = mix(color_top.rgb, color_bottom.rgb, UV.y);
+    vec3 wind_highlight = color_top.rgb * 1.5;
+    vec3 varied_color = mix(gradient, color_variation, v_patch * 0.3);
+    vec3 final_color = mix(varied_color, wind_highlight, v_wind_intensity * 0.4);
+    ALBEDO = final_color;
+
+    float bottom_to_top = v_height; // 0 = tip, 1 = base
+    AO = bottom_to_top + v_wind_intensity * 0.3;
+    AO = clamp(AO, 0.0, 1.0);
+    AO_LIGHT_AFFECT = 1.0;
+
+    vec3 world_up_view = normalize(mat3(VIEW_MATRIX) * vec3(0.0, 1.0, 0.0));
+    NORMAL = mix(NORMAL, world_up_view, bottom_to_top * 0.5);
+
+    ROUGHNESS = 0.8;
+    SPECULAR = 0.2;
+    BACKLIGHT = ALBEDO * 0.3;
+}
+
+We added brighter highlight during gusts (v_wind_intensity), simple AO, so its darker at base, slight normal tilt toward world up at base. Also added roughness, specular, and backlight for realism.
+
+NOTE: mix function takes three parameters: color1, color2, and mask_value. When mask_value approaches 0.0, color1 is shown; when it approaches 1.0, color2 is shown. For intermediate values, color is intermediate/mixed.

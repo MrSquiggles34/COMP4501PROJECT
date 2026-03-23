@@ -8,22 +8,15 @@ enum HostileType { MUSHROOM, SLIME, FLYTRAP, GOLEM }
 
 var health
 
-# State machine
-var current_state: EnemyState
-var wander_state = preload("res://scripts/hostile_state_wander.gd").new()
-
-var dragons_container: Node = null
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.HOSTILE
-	change_state(wander_state)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if current_state:
-		current_state.update(delta)
+	#enemies will have a radial range, in which if a dragon enters into, the enemy will attempt to attack
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -33,9 +26,3 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 		
 	move_and_slide()
-
-func change_state(new_state: EnemyState) -> void:
-	if current_state:
-		current_state.exit()
-	current_state = new_state
-	current_state.enter(self)

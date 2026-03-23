@@ -15,7 +15,7 @@ var meshes: Array[MeshInstance3D] = []
 func _ready() -> void:
 	outline_material = ShaderMaterial.new()
 	outline_material.shader = load("res://shaders/entity_outline.gdshader")
-	
+	add_to_group("entities")
 	var search_node = model if model else self
 	for child in search_node.find_children("*", "MeshInstance3D", true):
 		meshes.append(child)
