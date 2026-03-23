@@ -146,9 +146,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.245152, 0, 6.84455)
 
 [node name="DragonFly" parent="Entities/DynamicEntity/Dragons" unique_id=967488521 instance=ExtResource("4_6je46")]
 transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, -1.1513758, 2.2935982, 0)
+motion_mode = 1
 gravity = 9.8
 move_speed = 5.0
 entity_type = 0
+
+[node name="DragonGround2" parent="Entities/DynamicEntity/Dragons" unique_id=2002908280 instance=ExtResource("5_mmwm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5301933, 0, 0)
+
+[node name="DragonGround3" parent="Entities/DynamicEntity/Dragons" unique_id=1117581378 instance=ExtResource("5_mmwm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.757553, 0, 0)
 
 [node name="DragonGround" parent="Entities/DynamicEntity/Dragons" unique_id=1102413407 instance=ExtResource("5_mmwm2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7446847, 0, 0)
@@ -157,55 +164,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7446847, 0, 0)
 
 [node name="HostileGolem2" parent="Entities/DynamicEntity/Hostiles" unique_id=328114888 instance=ExtResource("6_bguoe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.222008, 4, -214.92346)
-entity_type = 1
 
 [node name="HostileGolem3" parent="Entities/DynamicEntity/Hostiles" unique_id=407469195 instance=ExtResource("6_bguoe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.27897, 2.934555, -83.90967)
-entity_type = 1
 
 [node name="HostileGolem" parent="Entities/DynamicEntity/Hostiles" unique_id=938163978 instance=ExtResource("6_bguoe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -196.28212, 2, -264.02945)
-entity_type = 1
 
 [node name="HostileMushroom5" parent="Entities/DynamicEntity/Hostiles" unique_id=984339574 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.076347, 1.6538315, -133.93759)
-entity_type = 1
 
 [node name="HostileMushroom4" parent="Entities/DynamicEntity/Hostiles" unique_id=1518813281 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.553577, 0.82691574, -40.95896)
-entity_type = 1
 
 [node name="HostileMushroom3" parent="Entities/DynamicEntity/Hostiles" unique_id=227535990 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.888397, 3.511242, -30.41883)
-entity_type = 1
 
 [node name="HostileMushroom2" parent="Entities/DynamicEntity/Hostiles" unique_id=980314479 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.01271, 4, -108.079956)
-entity_type = 1
 
 [node name="HostileMushroom" parent="Entities/DynamicEntity/Hostiles" unique_id=1113501833 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120.47464, 2, -121.328)
-entity_type = 1
 
 [node name="HostileSlime3" parent="Entities/DynamicEntity/Hostiles" unique_id=2073776586 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.785084, 2.2336578, -130.43121)
-entity_type = 1
 
 [node name="HostileSlime2" parent="Entities/DynamicEntity/Hostiles" unique_id=588126732 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.107517, 1.5840302, -119.79256)
-entity_type = 1
 
 [node name="HostileSlime" parent="Entities/DynamicEntity/Hostiles" unique_id=260435812 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.23544, 3, -104.456245)
-entity_type = 1
 
 [node name="HostileFlytrap2" parent="Entities/DynamicEntity/Hostiles" unique_id=2077584686 instance=ExtResource("9_pq012")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.537277, 4, -202.75575)
-entity_type = 1
+move_speed = 0.0
 
 [node name="HostileFlytrap" parent="Entities/DynamicEntity/Hostiles" unique_id=971431266 instance=ExtResource("9_pq012")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.453354, 2, -103.654106)
-entity_type = 1
+move_speed = 0.0
 
 [node name="Base" parent="Entities" unique_id=2059206151 instance=ExtResource("13_0ebsy")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 3.8689919, 4.422819, 59.14042)

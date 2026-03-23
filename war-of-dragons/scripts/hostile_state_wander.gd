@@ -11,6 +11,9 @@ class_name WanderState
 @export var vision_distance: float = 15.0    
 @export var vision_angle: float = 60.0       
 
+# toggle for switching to pursuem, since msuhrooms don't pursue
+@export var can_pursue: bool = true
+
 var home_position: Vector3                     
 var target_position: Vector3
 var wander_timer: Timer
@@ -53,10 +56,12 @@ func update(delta: float) -> void:
 		if angle_deg <= vision_angle:
 			# valid target
 			# Switch to PursueState targeting this dragon
-			var pursue_state = preload("res://scripts/hostile_state_pursue.gd").new()
-			pursue_state.target_dragon = dragon
-			enemy.change_state(pursue_state)
-			return  
+			var target = find_closest_dragon_in_cone()
+
+			if target and can_pursue:
+				enemy.pursue_state_instance.target_dragon = target
+				enemy.change_state(enemy.pursue_state_instance)
+				return 
 	
 	move_towards_target(delta)
 
@@ -95,3 +100,41 @@ func move_towards_target(delta: float) -> void:
 	else:
 		enemy.velocity.x = 0
 		enemy.velocity.z = 0
+		
+
+func find_closest_dragon_in_cone() -> Dragon:
+	if not enemy or not enemy.dragons_container:
+		return null
+
+	var dragons = enemy.dragons_container.get_children()
+
+	var closest_dragon: Dragon = null
+	var closest_dist_sq: float = INF
+	var forward = -enemy.transform.basis.z.normalized()
+
+	for dragon in dragons:
+		if not is_instance_valid(dragon):
+			continue
+
+		var to_dragon = dragon.global_position - enemy.global_position
+		to_dragon.y = 0
+
+		var dist_sq = to_dragon.length_squared()
+
+		# Distance check
+		if dist_sq > vision_distance * vision_distance:
+			continue
+
+		# Angle check
+		var dir = to_dragon.normalized()
+		var angle_deg = rad_to_deg(forward.angle_to(dir))
+
+		if angle_deg > vision_angle:
+			continue
+
+		# Keep closest
+		if dist_sq < closest_dist_sq:
+			closest_dist_sq = dist_sq
+			closest_dragon = dragon
+
+	return closest_dragon
