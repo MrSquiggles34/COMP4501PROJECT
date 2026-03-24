@@ -18,7 +18,10 @@ extends MultiMeshInstance3D
 ## Wind noise texture — assign a NoiseTexture2D for wind and color variation
 @export var noise_texture: Texture2D
 
-var grass_material: ShaderMaterial
+## The shader material for the grass blades.
+## Tweak shader params (colors, wind, etc.) on THIS resource in the Inspector
+## and they will persist when you save the scene.
+@export var grass_material: ShaderMaterial
 
 func _ready() -> void:
 	_generate_grass()
@@ -40,13 +43,15 @@ func _generate_grass() -> void:
 	# Bottom-pivot so blades sit on the ground
 	quad.center_offset = Vector3(0.0, blade_height / 2.0, 0.0)
 
-	grass_material = ShaderMaterial.new()
-	grass_material.shader = load("res://shaders/grass.gdshader")
+	# Only create a new material if one isn't already saved in the scene.
+	# This preserves any shader parameter tweaks you made in the Inspector.
+	if not grass_material:
+		grass_material = ShaderMaterial.new()
+		grass_material.shader = load("res://shaders/grass.gdshader")
 
-	# Assign noise texture if provided
+	# Always sync these from the exported script variables
 	if noise_texture:
 		grass_material.set_shader_parameter("wind_noise", noise_texture)
-
 	grass_material.set_shader_parameter("interaction_radius", interaction_radius)
 	grass_material.set_shader_parameter("interaction_push", interaction_push)
 
