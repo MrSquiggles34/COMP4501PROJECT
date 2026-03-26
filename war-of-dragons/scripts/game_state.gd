@@ -211,6 +211,10 @@ func get_all_entities(node: Node) -> Array[Entity]:
 	return result
 
 func _input(event: InputEvent) -> void:
+	# Ensure all selected are valid
+	selected_entities = selected_entities.filter(is_instance_valid)
+	entities = entities.filter(is_instance_valid)
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			selection_rect.drag_start = event.position

@@ -5,6 +5,9 @@ class_name PursueState
 @export var lose_distance: float = 12.0   
 @export var attack_distance: float = 2.5  
 
+@export var vision_distance: float = 14.0
+@export var vision_angle: float = 60.0
+
 var target_dragon: Dragon
 
 func enter(_enemy: Hostile) -> void:
@@ -23,6 +26,10 @@ func update(delta: float) -> void:
 		switch_to_wander()
 		return
 
+	var better_target = find_closest_dragon_in_cone()
+	if better_target:
+		target_dragon = better_target
+
 	var to_target = target_dragon.global_position - enemy.global_position
 	to_target.y = 0
 
@@ -32,13 +39,17 @@ func update(delta: float) -> void:
 		switch_to_wander()
 		return
 
+	# Switch to attack mode using preconfigured attack state
+	if dist_sq <= enemy.pursue_state_instance.attack_distance * enemy.pursue_state_instance.attack_distance:
+		print(enemy.name, "switched to attack")
+		enemy.attack_state_instance.target_dragon = target_dragon
+		enemy.change_state(enemy.attack_state_instance)
+		return
+
 	# Pursue
 	enemy.agent.target_position = target_dragon.global_position
+	
 	move_towards_target()
-
-	# TO DO: SWITCH TO ATTACK MODE
-	# if dist_sq <= attack_distance * attack_distance:
-	#     enemy.change_state(preload("res://scripts/hostile_state_attack.gd").new())
 
 func move_towards_target() -> void:
 	if not enemy.agent:
@@ -66,5 +77,40 @@ func move_towards_target() -> void:
 		enemy.velocity.z = 0
 
 func switch_to_wander() -> void:
-	var wander_state = preload("res://scripts/hostile_state_wander.gd").new()
-	enemy.change_state(wander_state)
+	enemy.change_state(enemy.wander_state_instance)
+	
+
+func find_closest_dragon_in_cone() -> Dragon:
+	var dragons = enemy.get_tree().get_nodes_in_group("dragons")
+
+	var closest_dragon: Dragon = null
+	var closest_dist_sq: float = INF
+
+	var forward = -enemy.transform.basis.z.normalized()
+
+	for dragon in dragons:
+		if not is_instance_valid(dragon):
+			continue
+
+		var to_dragon = dragon.global_position - enemy.global_position
+		to_dragon.y = 0
+
+		var dist_sq = to_dragon.length_squared()
+
+		# Distance check (cheap)
+		if dist_sq > vision_distance * vision_distance:
+			continue
+
+		# Angle check
+		var dir = to_dragon.normalized()
+		var angle_deg = rad_to_deg(forward.angle_to(dir))
+
+		if angle_deg > vision_angle:
+			continue
+
+		# Keep closest
+		if dist_sq < closest_dist_sq:
+			closest_dist_sq = dist_sq
+			closest_dragon = dragon
+
+	return closest_dragon

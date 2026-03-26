@@ -10,7 +10,9 @@ var health
 
 # State machine
 var current_state: EnemyState
-var wander_state = preload("res://scripts/hostile_state_wander.gd").new()
+var wander_state_instance: EnemyState
+var pursue_state_instance: EnemyState
+var attack_state_instance: EnemyState
 
 var dragons_container: Node = null
 
@@ -18,7 +20,7 @@ var dragons_container: Node = null
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.HOSTILE
-	change_state(wander_state)
+	change_state(wander_state_instance)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
