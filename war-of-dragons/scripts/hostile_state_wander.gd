@@ -113,10 +113,14 @@ func find_closest_dragon_in_cone() -> Dragon:
 	var forward = -enemy.transform.basis.z.normalized()
 
 	for dragon in dragons:
-		if not is_instance_valid(dragon):
+		if not (dragon is Dragon):
 			continue
 
-		var to_dragon = dragon.global_position - enemy.global_position
+		var d := dragon as Dragon
+		if not is_instance_valid(d):
+			continue
+		
+		var to_dragon = d.global_position - enemy.global_position
 		to_dragon.y = 0
 
 		var dist_sq = to_dragon.length_squared()

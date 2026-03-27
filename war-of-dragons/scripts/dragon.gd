@@ -202,6 +202,7 @@ func _on_attack_timer_timeout():
 	if attack_target.health <= 0:
 		var drop_position = attack_target.global_position
 		
+		attack_target.play_death_effect()
 		attack_target.queue_free()
 		attack_target = null
 		$AttackTimer.stop()

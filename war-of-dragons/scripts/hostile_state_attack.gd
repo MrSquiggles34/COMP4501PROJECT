@@ -54,6 +54,7 @@ func perform_attack() -> void:
 
 	# One hit kill
 	print(enemy.name, "attacked", target_dragon.name)
+	target_dragon.play_death_effect()
 	target_dragon.queue_free()
 	switch_to_wander()
 
