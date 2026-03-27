@@ -193,10 +193,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.01271, 4, -108.079956)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120.47464, 2, -121.328)
 
 [node name="HostileSlime3" parent="Entities/DynamicEntity/Hostiles" unique_id=2073776586 instance=ExtResource("8_f6vr5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.785084, 2.2336578, -130.43121)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.785084, 4.4123507, -130.43121)
 
 [node name="HostileSlime2" parent="Entities/DynamicEntity/Hostiles" unique_id=588126732 instance=ExtResource("8_f6vr5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.107517, 1.5840302, -119.79256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.107517, 4.564825, -119.79256)
 
 [node name="HostileSlime" parent="Entities/DynamicEntity/Hostiles" unique_id=260435812 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.23544, 3, -104.456245)
