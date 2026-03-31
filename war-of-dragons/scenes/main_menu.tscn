@@ -35,7 +35,7 @@ theme_override_constants/separation = 40
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1574788915]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
-text = "Dragon Daycare"
+text = "War of Dragons"
 horizontal_alignment = 1
 
 [node name="ButtonsVBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=440952498]

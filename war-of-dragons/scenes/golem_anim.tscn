@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b45ty22ukj2ch"]
+
+[ext_resource type="PackedScene" uid="uid://dohqg17jdp38v" path="res://artBlendObjects/golemAnim.glb" id="1_fl6k0"]
+
+[node name="golemAnim" unique_id=180681751 instance=ExtResource("1_fl6k0")]
+
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1308644925) index="0" unique_id=1194844733]
+bones/8/rotation = Quaternion(0.6754351, -0.6476483, -0.126723, -0.32905978)
+bones/9/rotation = Quaternion(0.20898296, 0.43238428, 0.12841007, 0.8676871)
+bones/10/rotation = Quaternion(0.36264685, -0.33767352, -0.09049032, 0.86387235)
+bones/11/rotation = Quaternion(-0.586725, 0.65438896, -0.24562825, -0.4088956)
+bones/12/rotation = Quaternion(0.6768316, 0.6569146, 0.17859988, -0.28011486)
+bones/13/rotation = Quaternion(0.36524662, -0.42868093, -0.099668406, 0.82030106)
+bones/14/rotation = Quaternion(0.4640805, 0.32526413, 0.11567798, 0.81575197)
+bones/17/rotation = Quaternion(0.8624443, -0.06491339, 0.016024746, 0.5017163)
+bones/18/rotation = Quaternion(0.42160943, -0.03144764, -0.20131311, 0.883589)
+bones/19/rotation = Quaternion(-0.577905, 0.19193234, 0.40837818, 0.68001115)
+bones/20/rotation = Quaternion(0.86244434, 0.06491338, -0.016024897, 0.5017163)
+bones/21/rotation = Quaternion(0.4216096, 0.03144769, 0.20131302, 0.88358897)
+bones/22/rotation = Quaternion(-0.5779051, -0.19193225, -0.40837795, 0.6800111)
