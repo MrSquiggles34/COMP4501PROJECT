@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgj7jye4da5nf"
-path.s3tc="res://.godot/imported/burrowDragonAnim_Image_0.png-cee1c016a8bcfa0ee52e47e0c6e82454.s3tc.ctex"
+uid="uid://b7ss6vpnp2mgv"
+path.s3tc="res://.godot/imported/golemAnim_Image_0.jpg-7f13c177fefdf4f6b58cd7f40f71d8cc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "2d2db60223fb0f6fa4ced5a2c93a750a"
+"md5": "06cff21f2c1ba656f74db39c35f6d8e1"
 }
 
 [deps]
 
-source_file="res://artBlendObjects/burrowDragonAnim_Image_0.png"
-dest_files=["res://.godot/imported/burrowDragonAnim_Image_0.png-cee1c016a8bcfa0ee52e47e0c6e82454.s3tc.ctex"]
+source_file="res://artBlendObjects/golemAnim_Image_0.jpg"
+dest_files=["res://.godot/imported/golemAnim_Image_0.jpg-7f13c177fefdf4f6b58cd7f40f71d8cc.s3tc.ctex"]
 
 [params]
 
