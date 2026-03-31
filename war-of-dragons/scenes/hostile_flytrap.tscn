@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://bhiyj4bj5qtjq"]
 
-[ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_11u0i"]
-[ext_resource type="PackedScene" uid="uid://k6arqbb3cqxn" path="res://art/hostile/fly_trap.glb" id="2_2xk0l"]
+[ext_resource type="PackedScene" uid="uid://wndm7t6trlq2" path="res://scenes/fly_trap_anim.tscn" id="1_11u0i"]
 [ext_resource type="Script" uid="uid://btujr25t5sgju" path="res://scripts/hostile_flytrap.gd" id="2_tyo3d"]
 
-[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_11u0i")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_2xk0l"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1894574916]
 script = ExtResource("2_tyo3d")
-hostile_type = 2
-entity_type = 1
 
-[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=377258151 instance=ExtResource("2_2xk0l")]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1250967508]
 
-[node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 2.126451, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2035307016]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.126451, 0)
+shape = SubResource("SphereShape3D_2xk0l")
+
+[node name="flyTrapAnim" parent="." unique_id=879022682 instance=ExtResource("1_11u0i")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)

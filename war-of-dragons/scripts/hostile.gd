@@ -41,3 +41,6 @@ func change_state(new_state: EnemyState) -> void:
 		current_state.exit()
 	current_state = new_state
 	current_state.enter(self)
+	
+func get_state():
+	return current_state

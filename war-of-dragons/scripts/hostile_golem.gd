@@ -1,6 +1,8 @@
 class_name HostileGolem
 extends Hostile
 
+@onready var anim_player = $golemAnim/AnimationPlayer
+
 var golem_wander_state = preload("res://scripts/hostile_state_wander.gd").new()
 var golem_pursue_state = preload("res://scripts/hostile_state_pursue.gd").new()
 var golem_attack_state = preload("res://scripts/hostile_state_attack.gd").new()
@@ -26,3 +28,13 @@ func _ready():
 	wander_state_instance = golem_wander_state
 
 	change_state(golem_wander_state)
+	
+func _process(delta):
+	super._process(delta)
+	
+	if (current_state == golem_pursue_state) or (current_state == golem_wander_state and velocity.x != 0 and velocity.y != 0 and velocity.z != 0):
+		if anim_player.current_animation != "Walk" or !anim_player.is_playing():
+			anim_player.play("Walk")
+	if current_state == golem_attack_state:	
+		if anim_player.current_animation != "Attack" or !anim_player.is_playing():
+			anim_player.play("Attack")
