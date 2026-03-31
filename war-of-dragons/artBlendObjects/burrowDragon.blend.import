@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bclpc1ibg4l8n"
-path="res://.godot/imported/golemAnim.glb-a9bd15d73e41148a93ed8a3ced466c1b.scn"
+uid="uid://d1ta6vd41euos"
+valid=false
 
 [deps]
 
-source_file="res://artBlendObjects/golemAnim.glb"
-dest_files=["res://.godot/imported/golemAnim.glb-a9bd15d73e41148a93ed8a3ced466c1b.scn"]
+source_file="res://artBlendObjects/burrowDragon.blend"
 
 [params]
 
@@ -38,5 +37,23 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
+blender/nodes/visible=0
+blender/nodes/active_collection_only=false
+blender/nodes/punctual_lights=true
+blender/nodes/cameras=true
+blender/nodes/custom_properties=true
+blender/nodes/modifiers=1
+blender/meshes/colors=false
+blender/meshes/uvs=true
+blender/meshes/normals=true
+blender/meshes/export_geometry_nodes_instances=false
+blender/meshes/gpu_instances=false
+blender/meshes/tangents=true
+blender/meshes/skins=2
+blender/meshes/export_bones_deforming_mesh_only=false
+blender/materials/unpack_enabled=true
+blender/materials/export_materials=1
+blender/animation/limit_playback=true
+blender/animation/always_sample=true
+blender/animation/group_tracks=true
 gltf/naming_version=2
-gltf/embedded_image_handling=1
