@@ -1,19 +1,22 @@
 [gd_scene format=3 uid="uid://dvefr45ja6te8"]
 
-[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_q5x3f"]
 [ext_resource type="Script" uid="uid://dufbskllaf55j" path="res://scripts/dragon_ground.gd" id="2_ehed3"]
-[ext_resource type="PackedScene" uid="uid://dhlqj8ywvcipe" path="res://art/dragon/dragon_ground.glb" id="2_tautj"]
+[ext_resource type="PackedScene" uid="uid://inuxbmstnmfd" path="res://scenes/ground_dragon_anim.tscn" id="2_tautj"]
 
-[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_q5x3f")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8o4gy"]
+height = 1.0927734
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=114232165]
 script = ExtResource("2_ehed3")
 
-[node name="CollisionShape3D" parent="." index="0" unique_id=575317902]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=194724742]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1222227045]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.008374095, 0.9817647, 0)
+shape = SubResource("CapsuleShape3D_8o4gy")
 
-[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1891627059) index="0" unique_id=1606187762 instance=ExtResource("2_tautj")]
-transform = Transform3D(-20, 0, -1.7484556e-06, 0, 20, 0, 1.7484556e-06, 0, -20, 0, 0, 0)
+[node name="groundDragonAnim" parent="." unique_id=434304460 instance=ExtResource("2_tautj")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="AttackTimer" type="Timer" parent="." index="3" unique_id=346425436]
+[node name="AttackTimer" type="Timer" parent="." unique_id=1240610929]
 wait_time = 0.75
-
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

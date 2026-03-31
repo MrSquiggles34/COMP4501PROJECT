@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjf6g3gm7mlmw"
 path.s3tc="res://.godot/imported/flyDragonAnim_Image_1.png-f2dd6067dd52a898ce788de157d31dde.s3tc.ctex"
-path.etc2="res://.godot/imported/flyDragonAnim_Image_1.png-f2dd6067dd52a898ce788de157d31dde.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://artBlendObjects/flyDragonAnim_Image_1.png"
-dest_files=["res://.godot/imported/flyDragonAnim_Image_1.png-f2dd6067dd52a898ce788de157d31dde.s3tc.ctex", "res://.godot/imported/flyDragonAnim_Image_1.png-f2dd6067dd52a898ce788de157d31dde.etc2.ctex"]
+dest_files=["res://.godot/imported/flyDragonAnim_Image_1.png-f2dd6067dd52a898ce788de157d31dde.s3tc.ctex"]
 
 [params]
 
