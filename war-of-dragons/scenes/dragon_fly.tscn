@@ -1,19 +1,22 @@
 [gd_scene format=3 uid="uid://djdh7mjmp0gl4"]
 
-[ext_resource type="PackedScene" uid="uid://c6w816cdcysdv" path="res://scenes/dragon.tscn" id="1_l188x"]
-[ext_resource type="PackedScene" uid="uid://m6m40jrs03uk" path="res://art/dragon/dragon_fly.glb" id="2_1vbrm"]
+[ext_resource type="PackedScene" uid="uid://cl0t6l1rof24b" path="res://scenes/fly_dragon_anim.tscn" id="2_1vbrm"]
 [ext_resource type="Script" uid="uid://dcat3l0c3w7mf" path="res://scripts/dragon_fly.gd" id="2_a2tag"]
 
-[node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_l188x")]
-motion_mode = 1
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a2tag"]
+height = 1.0927734
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=2071224914]
 script = ExtResource("2_a2tag")
-dragon_type = 1
 
-[node name="CollisionShape3D" parent="." index="0" unique_id=575317902]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1817311013]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 5.931, 1)
+shape = SubResource("CapsuleShape3D_a2tag")
 
-[node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1891627059) index="0" unique_id=1259833904 instance=ExtResource("2_1vbrm")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -37.805912, 0, 0)
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1963406950]
 
-[node name="AttackTimer" type="Timer" parent="." index="3" unique_id=129275470]
+[node name="flyDragonAnim" parent="." unique_id=2119116967 instance=ExtResource("2_1vbrm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5, 0)
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=863486650]
 wait_time = 2.0
