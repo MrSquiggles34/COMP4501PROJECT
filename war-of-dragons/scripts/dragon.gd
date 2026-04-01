@@ -11,12 +11,13 @@ var state: DragonState = DragonState.IDLE
 
 # Attack Parameters
 var attack_target: Hostile = null
-var attack_distance: float = 5.0  
+var attack_distance: float = 7.5
 var collectible_target: Collectible = null
 var collect_distance: float = 5.0
 var bump_speed: float = 10.0
 var home_base: Base
 var damage: float
+var flag: bool = false
 
 const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible scene to spawn collectibles when enemies die
 
@@ -37,7 +38,7 @@ var flock_disable_distance: float = 3.0
 func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.DRAGON
-	$AttackTimer.timeout.connect(Callable(self, "_on_attack_timer_timeout"))
+	$AttackTimer.timeout.connect(Callable(self, "_on_attack_timer_timeout")) #cant be gotten rid of otherwise things break again
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,18 +58,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		# Flying dragons ignore gravity
 		velocity.y = 0
-	
-	#for when in an idle or moving state and a collectible body has entered into dragons range
-	
-	
+
 	# Generic State Machine
 	match state:
 		DragonState.IDLE:
 			velocity.x = 0
 			velocity.z = 0
 			
-			#if attack_distane < 1.0:
-				#_process_attack(delta)
 			
 		DragonState.MOVING:
 			_process_movement(delta)
@@ -176,18 +172,46 @@ func _process_attack(delta: float):
 	if not attack_target or not is_instance_valid(attack_target):
 		set_state(DragonState.IDLE)
 		attack_target = null
+		("stopping timer in process attack")
 		$AttackTimer.stop()
 		return
 
 	var direction = (attack_target.global_position - global_position).normalized()
 	velocity = direction * bump_speed
-
-	# Check if close enough to attack (right now single hit)
-	if global_position.distance_to(attack_target.global_position) < attack_distance:
-		if $AttackTimer.is_stopped():
-			$AttackTimer.emit_signal("timeout")
-			$AttackTimer.start($AttackTimer.wait_time)
+	
+	if $AttackTimer.is_stopped():
+		print("attempting to emit timeout1")
+		#$AttackTimer.emit_signal("timeout1")
+		$AttackTimer.start($AttackTimer.wait_time)
+		
+	if $AttackTimer.get_time_left() < 0.01:
+		if not attack_target or not is_instance_valid(attack_target): #was code from on_attack_timer_timeout
+			$AttackTimer.stop()
+			return
+		
+		attack_target.health -= damage
+		print(attack_target.health)
+		
+		if attack_target.health <= 0:
+			var drop_position = attack_target.global_position
 			
+			attack_target.play_death_effect()
+			attack_target.queue_free()
+			attack_target = null
+			$AttackTimer.stop()
+			
+			#spawn collectible
+			var collectible = CollectibleScene.instantiate()
+			collectible.setValue(50.0)
+			var coll_container = get_node_or_null("../../../Collectibles")
+			if coll_container:
+				coll_container.add_child(collectible)
+			else:
+				get_parent().add_child(collectible)
+			collectible.global_position = drop_position #drop collectible at the position of the enemy
+			set_state(DragonState.IDLE)
+			
+		
 		
 func _process_carrying(delta):
 	_process_movement(delta)
@@ -195,13 +219,6 @@ func _process_carrying(delta):
 	if collectible_target:
 		collectible_target.global_position = global_position + Vector3(0, 1, 0)
 	
-	#if agent.position - home_base.position <= 2.0:
-		#if collectible_target:
-			#home_base.collect(collectible_target) #this is already done with the base on body enter
-			#collectible_target.queue_free()
-			#collectible_target = null
-		#set_state(DragonState.IDLE)
-		#agent.navigation_finished
 		
 	if agent.is_navigation_finished():
 		print("trying to collect through process_carrying")
@@ -213,33 +230,8 @@ func _process_carrying(delta):
 		
 
 func _on_attack_timer_timeout():
-	print("timing out")
+	print("timing out") #does nothing but here nonetheless to help
 	
-	if not attack_target or not is_instance_valid(attack_target):
-		$AttackTimer.stop()
-		return
-		
-	attack_target.health -= damage
-	print(attack_target.health)
-	
-	if attack_target.health <= 0:
-		var drop_position = attack_target.global_position
-		
-		attack_target.play_death_effect()
-		attack_target.queue_free()
-		attack_target = null
-		$AttackTimer.stop()
-		
-		#spawn collectible
-		var collectible = CollectibleScene.instantiate()
-		collectible.setValue(50.0)
-		var coll_container = get_node_or_null("../../../Collectibles")
-		if coll_container:
-			coll_container.add_child(collectible)
-		else:
-			get_parent().add_child(collectible)
-		collectible.global_position = drop_position #drop collectible at the position of the enemy
-		set_state(DragonState.IDLE)
 	
 # Change the state of the dragon & print
 func set_state(new_state: DragonState) -> void:

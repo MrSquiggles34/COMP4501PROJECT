@@ -32,9 +32,10 @@ func _ready():
 func _process(delta):
 	super._process(delta)
 	
-	if (current_state == golem_pursue_state) or (current_state == golem_wander_state and velocity.x != 0 and velocity.y != 0 and velocity.z != 0):
+	if (current_state == golem_pursue_state) or (current_state == golem_wander_state and velocity.x != 0 and velocity.y != 0):
 		if anim_player.current_animation != "Walk" or !anim_player.is_playing():
 			anim_player.play("Walk")
+			#walking is viewed to still have a bit of issues on its timing
 	if current_state == golem_attack_state:	
 		if anim_player.current_animation != "Attack" or !anim_player.is_playing():
 			anim_player.play("Attack")
