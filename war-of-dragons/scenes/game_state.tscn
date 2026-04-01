@@ -10,7 +10,6 @@
 script = ExtResource("1_ukbay")
 
 [node name="GameInterfaceLayer" type="CanvasLayer" parent="." unique_id=246498740]
-visible = false
 
 [node name="GameInterface" type="Control" parent="GameInterfaceLayer" unique_id=8923485]
 layout_mode = 3

@@ -10,8 +10,57 @@ func _ready() -> void:
 	save_timer.timeout.connect(save_collectibles_async)
 	add_child(save_timer)
 
+var game_timer_started := false
+var game_time_remaining := 300.0
+var game_over_triggered := false
+
+@onready var anim_player: AnimationPlayer = $WorldEnvironment/AnimationPlayer
+
 func _process(delta: float) -> void:
-	pass
+	if game_over_triggered:
+		return
+		
+	if not game_timer_started:
+		if anim_player.is_playing() and anim_player.current_animation == "daynightcycle":
+			if anim_player.current_animation_position >= 30.0:
+				game_timer_started = true
+	else:
+		game_time_remaining -= delta
+		_update_ui_timer()
+		
+		if game_time_remaining <= 0:
+			game_time_remaining = 0
+			_trigger_game_over()
+
+func _update_ui_timer() -> void:
+	var ui = get_parent().get_node_or_null("UI")
+	if ui and ui.has_node("CenterContainer/VBoxContainer/TimerLabel"):
+		var label = ui.get_node("CenterContainer/VBoxContainer/TimerLabel")
+		var minutes := int(game_time_remaining) / 60
+		var seconds := int(game_time_remaining) % 60
+		label.text = "%d:%02d" % [minutes, seconds]
+
+func _trigger_game_over() -> void:
+	game_over_triggered = true
+	var ui = get_parent().get_node_or_null("UI")
+	if ui and ui.has_node("GameOverOverlay"):
+		ui.get_node("GameOverOverlay").visible = true
+	
+	# Wait 5 seconds, save, then exit
+	var timer = get_tree().create_timer(5.0)
+	timer.timeout.connect(_finalize_game_over)
+
+func _finalize_game_over() -> void:
+	# Save game via GameState
+	var game_state = get_parent()
+	if game_state.has_method("save_game"):
+		game_state.save_game()
+	
+	# Save collectibles
+	save_collectibles_sync()
+	
+	# Exit to main menu
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func save_collectibles_async() -> void:
 	var col_data = _gather_collectibles()
