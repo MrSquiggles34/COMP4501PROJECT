@@ -335,25 +335,16 @@ func command_move(mouse_pos: Vector2) -> void:
 	
 	var click_position: Vector3 = result.position
 	
-	# ---- Formation Setup ----
-	var unit_count = selected_entities.size()
-	var spacing = 2.0
-	
-	# Square grid
-	var columns: int = int(ceil(sqrt(float(unit_count))))
-	
-	for i in range(selected_entities.size()):
-		var row = i / columns
-		var col = i % columns
-		
-		var offset = Vector3(
-			(col - columns / 2.0) * spacing,
-			0,
-			row * spacing
-		)
-		
-		if selected_entities[i] is Dragon:
-			selected_entities[i].move_to(click_position + offset)
+	# ---- Formation With Flocking
+	var move_group: Array[Dragon] = []
+
+	for entity in selected_entities:
+		if entity is Dragon:
+			move_group.append(entity)
+
+	for dragon in move_group:
+		dragon.set_flock_group(move_group)
+		dragon.move_to(click_position)
 
 # Remove an entity from the game REQUIRED FOR ACCESSING ENTITY ARRAYS
 func clean_entities():
