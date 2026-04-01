@@ -360,4 +360,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.453354, 2, -103.654106)
 move_speed = 0.0
 
 [node name="Base" parent="Entities" unique_id=2059206151 instance=ExtResource("13_0ebsy")]
-transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 3.8689919, 4.422819, 59.14042)
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 7.342228, 0.08556175, 59.14042)
