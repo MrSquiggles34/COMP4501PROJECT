@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cx0nuiv5iv6r"]
 
 [ext_resource type="Script" uid="uid://dwxawapqsuedq" path="res://scripts/Base.gd" id="1_y5r8t"]
-[ext_resource type="PackedScene" uid="uid://c6neeocmrvxof" path="res://art/world/stilized_house.glb" id="2_baglu"]
+[ext_resource type="PackedScene" uid="uid://cgojr0jbiqm6q" path="res://art/world/stilized_house.glb" id="2_baglu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_baglu"]
 
@@ -10,14 +10,14 @@
 [node name="Base" type="CharacterBody3D" unique_id=2059206151]
 script = ExtResource("1_y5r8t")
 
-[node name="Model" type="Node3D" parent="." unique_id=1563680502]
-
-[node name="Sketchfab_Scene" parent="Model" unique_id=1603858460 instance=ExtResource("2_baglu")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1258485865]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -0.728, 1.737031, 0)
 shape = SubResource("BoxShape3D_baglu")
+
+[node name="Model" type="Node3D" parent="." unique_id=1563680502]
+
+[node name="Sketchfab_Scene" parent="Model" unique_id=913955638 instance=ExtResource("2_baglu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="." unique_id=524612831]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
