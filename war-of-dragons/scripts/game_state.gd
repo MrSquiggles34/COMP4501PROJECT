@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var camera: Camera3D = $PlayerCameraNode/Marker3D/PlayerCamera
 @onready var selection_rect = $SelectionUI/SelectionBox
-@onready var game_interface = $GameInterfaceLayer
+@onready var game_interface = $GameInterfaceLayer/GameInterface
 @onready var dragons_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/DragonsLabel
 @onready var enemies_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/EnemiesLabel
 @onready var entities_container = $Map/Entities
@@ -16,6 +16,7 @@ var save_path := "res://savegame.json"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
+	game_interface.visible = false # Ensure it's hidden at start
 	initialize_game(Global.load_from_save)
 
 func initialize_game(is_loading: bool) -> void:
@@ -173,12 +174,6 @@ func load_game() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-func _key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("open_interface"):
-		game_interface.visible = not game_interface.visible
-		if game_interface.visible:
-			_update_interface_stats()
-
 func _update_interface_stats() -> void:
 	clean_entities()
 	entities = get_all_entities(entities_container)
@@ -211,6 +206,13 @@ func get_all_entities(node: Node) -> Array[Entity]:
 	return result
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("open_interface"):
+		game_interface.visible = not game_interface.visible
+		if game_interface.visible:
+			_update_interface_stats()
+		get_viewport().set_input_as_handled()
+		return
+
 	# Ensure all selected are valid
 	selected_entities = selected_entities.filter(is_instance_valid)
 	entities = entities.filter(is_instance_valid)

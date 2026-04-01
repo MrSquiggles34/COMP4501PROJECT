@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c7rmcah7mk5sw" path="res://art/world/Sun.png" id="3_f6vr5"]
 [ext_resource type="PackedScene" uid="uid://bc0y51golyius" path="res://scenes/dragon_burrow.tscn" id="3_uqwi6"]
 [ext_resource type="PackedScene" uid="uid://djdh7mjmp0gl4" path="res://scenes/dragon_fly.tscn" id="4_6je46"]
-[ext_resource type="Texture2D" uid="uid://dw4kg4gwl62kx" path="res://art/world/shooting_star_sampler.png" id="4_yqt6d"]
+[ext_resource type="Texture2D" uid="uid://dw4rqr6ii1jdb" path="res://art/world/shooting_star_sampler.png" id="4_yqt6d"]
 [ext_resource type="PackedScene" uid="uid://dvefr45ja6te8" path="res://scenes/dragon_ground.tscn" id="5_mmwm2"]
 [ext_resource type="PackedScene" uid="uid://6fyc27tue762" path="res://scenes/hostile_golem.tscn" id="6_bguoe"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="6_r2gk0"]
@@ -41,7 +41,7 @@ shader_parameter/clouds_samples = 32
 shader_parameter/shadow_sample = 4
 shader_parameter/clouds_density = 0.40000000596048
 shader_parameter/clouds_scale = 1.0
-shader_parameter/clouds_smoothness = 0.049999998882400004
+shader_parameter/clouds_smoothness = 0.0499999988824
 shader_parameter/clouds_light_color = Color(0.22745098, 0.44705883, 1, 1)
 shader_parameter/clouds_shadow_intensity = 8.0000001192096
 shader_parameter/high_clouds_sampler = SubResource("NoiseTexture2D_jpwmp")
@@ -180,8 +180,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_yoj5b"]
 resource_name = "daynightcycle"
-length = 60.0
-loop_mode = 1
+length = 330.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -189,10 +188,10 @@ tracks/0/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.22745098, 0.44705883, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(0.22745098, 0.44705883, 1, 1), Color(1, 1, 1, 1), Color(0.22745098, 0.44705883, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -201,10 +200,10 @@ tracks/1/path = NodePath(".:environment:sky:sky_material:shader_parameter/top_co
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.02745098, 0.101960786, 0.2509804, 1), Color(0.34901962, 0.5882353, 1, 1)]
+"values": [Color(0.02745098, 0.101960786, 0.2509804, 1), Color(0.34901962, 0.5882353, 1, 1), Color(0.02745098, 0.101960786, 0.2509804, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -213,10 +212,10 @@ tracks/2/path = NodePath(".:environment:sky:sky_material:shader_parameter/bottom
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.02745098, 0.101960786, 0.2509804, 1), Color(0.66668326, 0.74125385, 0.80946815, 1)]
+"values": [Color(0.02745098, 0.101960786, 0.2509804, 1), Color(0.66668326, 0.74125385, 0.80946815, 1), Color(0.02745098, 0.101960786, 0.2509804, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -225,10 +224,10 @@ tracks/3/path = NodePath(".:environment:sky:sky_material:shader_parameter/sun_sc
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.1254902, 0.08627451, 0.37254903, 1), Color(0.29803923, 0.29803923, 0.29803923, 1)]
+"values": [Color(0.1254902, 0.08627451, 0.37254903, 1), Color(0.29803923, 0.29803923, 0.29803923, 1), Color(0.1254902, 0.08627451, 0.37254903, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -237,10 +236,10 @@ tracks/4/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.95281494, 0.89827347, 0.80946815, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.95281494, 0.89827347, 0.80946815, 1), Color(1, 1, 1, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -249,10 +248,10 @@ tracks/5/path = NodePath(".:environment:sky:sky_material:shader_parameter/stars_
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [5.0, 0.0]
+"values": [5.0, 0.0, 5.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -261,10 +260,10 @@ tracks/6/path = NodePath(".:environment:sky:sky_material:shader_parameter/shooti
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.90000001341108, 0.0]
+"values": [0.90000001341108, 0.0, 0.90000001341108]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -273,10 +272,10 @@ tracks/7/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [8.0000001192096, 1.0]
+"values": [8.0000001192096, 1.0, 8.0000001192096]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -285,10 +284,10 @@ tracks/8/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 30, 330),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.20000000298024, 3.0]
+"values": [1.20000000298024, 3.0, 1.20000000298024]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yqt6d"]
