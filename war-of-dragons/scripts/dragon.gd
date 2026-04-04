@@ -202,7 +202,7 @@ func _process_attack(delta: float):
 			
 			#spawn collectible
 			var collectible = CollectibleScene.instantiate()
-			collectible.setValue(1.0)
+			collectible.setValue(50.0)
 			var coll_container = get_node_or_null("../../../Collectibles")
 			if coll_container:
 				coll_container.add_child(collectible)
