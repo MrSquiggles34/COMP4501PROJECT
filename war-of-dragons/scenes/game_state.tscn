@@ -43,7 +43,7 @@ theme_override_constants/separation = 20
 [node name="TitleLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=883112]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Game Menu"
+text = "Care Menu"
 horizontal_alignment = 1
 
 [node name="DragonsLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=233411]
@@ -67,11 +67,12 @@ text = "Save and Quit"
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
 [node name="Marker3D" type="Marker3D" parent="PlayerCameraNode" unique_id=861034217]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -32.22888, 20, 35.06301)
+transform = Transform3D(1, 0, 0, 0, 0.85266745, 0.5224539, 0, -0.5224539, 0.85266745, -32.22888, 9.3785715, 35.06301)
 script = ExtResource("1_018ao")
-move_speed = 50.0
+move_speed = 25.0
 zoom_sensitivity = 100.0
-zoom_out_bound = 140.0
+zoom_in_bound = 10.0
+zoom_out_bound = 10.0
 
 [node name="PlayerCamera" type="Camera3D" parent="PlayerCameraNode/Marker3D" unique_id=1093098968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
