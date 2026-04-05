@@ -38,7 +38,7 @@ func update(delta: float) -> void:
 	enemy.velocity.x = 0
 	enemy.velocity.z = 0
 	
-	if to_target.length() > 0.01:
+	if enemy.requires_facing_to_attack and to_target.length() > 0.01:
 		enemy.look_at(enemy.global_position + to_target.normalized(), Vector3.UP)
 
 	# Cooldown attack
@@ -60,13 +60,12 @@ func perform_attack() -> void:
 
 
 func switch_to_wander():
-	var wander = preload("res://scripts/hostile_state_wander.gd").new()
 	print(enemy.name, "switched to wander")
-	enemy.change_state(wander)
+	enemy.change_state(enemy.wander_state_instance)
 
 
 func switch_to_pursue():
 	var pursue = preload("res://scripts/hostile_state_pursue.gd").new()
 	print(enemy.name, "switched to pursue")
 	pursue.target_dragon = target_dragon
-	enemy.change_state(pursue)
+	enemy.change_state(enemy.pursue_state_instance)

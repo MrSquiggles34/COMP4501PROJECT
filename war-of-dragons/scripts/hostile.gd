@@ -16,6 +16,8 @@ var attack_state_instance: EnemyState
 
 var dragons_container: Node = null
 
+var requires_facing_to_attack: bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()

@@ -16,9 +16,9 @@ func _ready():
 	
 	slime_pursue_state.move_speed = 4.0
 	slime_pursue_state.lose_distance = 6.0
-	slime_pursue_state.attack_distance = 2.0
+	slime_pursue_state.attack_distance = 4.0
 
-	slime_attack_state.attack_range = 2.0
+	slime_attack_state.attack_range = 4.0
 	slime_attack_state.attack_cooldown = 1.0
 	
 	attack_state_instance = slime_attack_state

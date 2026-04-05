@@ -11,7 +11,7 @@ script = ExtResource("2_tyo3d")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1250967508]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2035307016]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.126451, 0)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 1.8812361, 0)
 shape = SubResource("SphereShape3D_2xk0l")
 
 [node name="flyTrapAnim" parent="." unique_id=879022682 instance=ExtResource("1_11u0i")]

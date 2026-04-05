@@ -10,7 +10,7 @@ hostile_type = 1
 entity_type = 1
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=688971530 instance=ExtResource("2_biv4c")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 2.1164064, -1.4371018)
+transform = Transform3D(-8, 0, -6.993822e-07, 0, 8, 0, 6.993822e-07, 0, -8, 0, 1.914391, 2.2915406)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.0963964, 0.47358656)
