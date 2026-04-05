@@ -42,6 +42,8 @@ func update(delta: float) -> void:
 	for dragon in dragons:
 		if not is_instance_valid(dragon):
 			continue
+		if dragon is Dragon and not enemy.can_target_dragon(dragon):
+			continue
 
 		var to_dragon = dragon.global_position - enemy.global_position
 		to_dragon.y = 0
@@ -118,6 +120,9 @@ func find_closest_dragon_in_cone() -> Dragon:
 
 		var d := dragon as Dragon
 		if not is_instance_valid(d):
+			continue
+		
+		if not enemy.can_target_dragon(d):
 			continue
 		
 		var to_dragon = d.global_position - enemy.global_position

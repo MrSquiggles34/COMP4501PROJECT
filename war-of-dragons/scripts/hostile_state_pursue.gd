@@ -91,6 +91,8 @@ func find_closest_dragon_in_cone() -> Dragon:
 	for dragon in dragons:
 		if not is_instance_valid(dragon):
 			continue
+		if not enemy.can_target_dragon(dragon):
+			continue
 
 		var to_dragon = dragon.global_position - enemy.global_position
 		to_dragon.y = 0

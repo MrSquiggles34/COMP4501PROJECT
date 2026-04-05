@@ -46,3 +46,14 @@ func change_state(new_state: EnemyState) -> void:
 	
 func get_state():
 	return current_state
+	
+func can_target_dragon(dragon: Dragon) -> bool:
+	if not dragon:
+		return false
+
+	# Flytraps only attack flying dragons
+	if hostile_type == HostileType.FLYTRAP:
+		return dragon.dragon_type == Dragon.DragonType.FLY
+
+	# All other enemies cannot attack flying dragons
+	return dragon.dragon_type != Dragon.DragonType.FLY
