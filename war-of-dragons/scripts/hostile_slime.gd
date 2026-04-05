@@ -26,3 +26,5 @@ func _ready():
 	wander_state_instance = slime_wander_state
 
 	change_state(slime_wander_state)
+	
+	super._ready()

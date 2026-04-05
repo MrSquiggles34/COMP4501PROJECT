@@ -29,6 +29,8 @@ func _ready():
 
 	change_state(golem_wander_state)
 	
+	super._ready()
+	
 func _process(delta):
 	super._process(delta)
 	

@@ -4,6 +4,7 @@ extends Dragon
 @onready var anim_player = $burrowDragonAnim/AnimationPlayer
 
 func _ready():
+	super._ready()
 	dragon_type = DragonType.BURROW
 	damage = 1.0
 

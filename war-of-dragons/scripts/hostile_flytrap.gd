@@ -33,6 +33,8 @@ func _ready():
 
 	change_state(flytrap_wander_state)
 	
+	super._ready()
+	
 func _process(delta):
 	super._process(delta)
 	

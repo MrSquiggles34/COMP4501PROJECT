@@ -16,3 +16,5 @@ func _ready():
 	wander_state_instance = mushroom_wander_state
 
 	change_state(mushroom_wander_state)
+	
+	super._ready()

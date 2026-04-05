@@ -4,6 +4,7 @@ extends Dragon
 @onready var anim_player = $groundDragonAnim/AnimationPlayer
 
 func _ready():
+	super._ready()
 	dragon_type = DragonType.GROUND
 	damage = 2.0
 
