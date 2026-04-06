@@ -64,6 +64,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Save and Quit"
 
+[node name="UI" parent="." unique_id=1807322550 instance=ExtResource("6_2cevy")]
+
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
 [node name="Marker3D" type="Marker3D" parent="PlayerCameraNode" unique_id=861034217]
@@ -94,7 +96,5 @@ mouse_filter = 2
 script = ExtResource("4_gu6ud")
 
 [node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
-
-[node name="UI" parent="." unique_id=1807322550 instance=ExtResource("6_2cevy")]
 
 [connection signal="pressed" from="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
