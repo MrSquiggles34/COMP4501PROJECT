@@ -2,6 +2,8 @@ class_name HostileGolem
 extends Hostile
 
 @onready var anim_player = $golemAnim/AnimationPlayer
+@onready var HealthBar = $HealthBar3D
+
 
 var golem_wander_state = preload("res://scripts/hostile_state_wander.gd").new()
 var golem_pursue_state = preload("res://scripts/hostile_state_pursue.gd").new()
@@ -9,7 +11,10 @@ var golem_attack_state = preload("res://scripts/hostile_state_attack.gd").new()
 
 func _ready():
 	hostile_type = HostileType.GOLEM
-	health = 50
+	max_health = 50
+	health = max_health
+	HealthBar.position = Vector3(0, 7.5, 0)
+	HealthBar.scale = Vector3(5, 5, 5)
 
 	# Enemy AI stuffs
 	golem_wander_state.wander_radius = 12.0

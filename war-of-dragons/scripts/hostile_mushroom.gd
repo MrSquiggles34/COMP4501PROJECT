@@ -2,10 +2,14 @@ class_name HostileMushroom
 extends Hostile
 
 var mushroom_wander_state = preload("res://scripts/hostile_state_wander.gd").new()
+@onready var HealthBar = $HealthBar3D
 
 func _ready():
 	hostile_type = HostileType.MUSHROOM
-	health = 10
+	max_health = 10
+	health = max_health
+	HealthBar.position = Vector3(0, 7.5, 0)
+	HealthBar.scale = Vector3(5, 5, 5)
 
 	# Enemy AI stuffs
 	mushroom_wander_state.wander_radius = 24.0
