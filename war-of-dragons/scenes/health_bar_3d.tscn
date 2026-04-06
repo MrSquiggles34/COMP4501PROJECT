@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://631sabipujqt"]
 
-[ext_resource type="Script" uid="uid://ddiw20i022cdp" path="res://health_bar_3d.gd" id="1_31eu1"]
+[ext_resource type="Script" uid="uid://ddiw20i022cdp" path="res://scripts/health_bar_3d.gd" id="1_31eu1"]
 [ext_resource type="PackedScene" uid="uid://drvgkns1v81b2" path="res://addons/simple_health_bar/health_bar.tscn" id="2_ncjsi"]
 
 [node name="HealthBar3D" type="Node3D" unique_id=200141804]
