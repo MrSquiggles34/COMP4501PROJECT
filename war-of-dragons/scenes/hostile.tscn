@@ -6,6 +6,10 @@
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1023116470]
 script = ExtResource("1_y84sh")
+gravity = null
+hostile_type = null
+move_speed = null
+entity_type = null
 
 [node name="Model" type="Node3D" parent="." unique_id=1905496790]
 

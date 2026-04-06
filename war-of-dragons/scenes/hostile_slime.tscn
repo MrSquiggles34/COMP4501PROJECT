@@ -3,10 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cser0io6hhouf" path="res://scenes/hostile.tscn" id="1_osh1a"]
 [ext_resource type="PackedScene" uid="uid://gqijx1wafox6" path="res://art/hostile/slime.glb" id="2_biv4c"]
 [ext_resource type="Script" uid="uid://suo8rpkdhram" path="res://scripts/hostile_slime.gd" id="2_c74kk"]
+[ext_resource type="PackedScene" uid="uid://631sabipujqt" path="res://scenes/health_bar_3d.tscn" id="4_c74kk"]
 
 [node name="CharacterBody3D" unique_id=1023116470 instance=ExtResource("1_osh1a")]
 script = ExtResource("2_c74kk")
+gravity = 9.8
 hostile_type = 1
+move_speed = 5.0
 entity_type = 1
 
 [node name="Sketchfab_Scene" parent="Model" parent_id_path=PackedInt32Array(1905496790) index="0" unique_id=688971530 instance=ExtResource("2_biv4c")]
@@ -14,3 +17,5 @@ transform = Transform3D(-8, 0, -6.993822e-07, 0, 8, 0, 6.993822e-07, 0, -8, 0, 1
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=575317902]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.0963964, 0.47358656)
+
+[node name="HealthBar3D" parent="." index="3" unique_id=200141804 instance=ExtResource("4_c74kk")]

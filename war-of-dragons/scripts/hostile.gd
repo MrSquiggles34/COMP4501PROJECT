@@ -3,10 +3,13 @@ extends DynamicEntity
 
 @export var gravity: float = 9.8
 @export var hostile_type: HostileType
+@onready var health_bar_3d = $HealthBar3D
 
 enum HostileType { MUSHROOM, SLIME, FLYTRAP, GOLEM }
 
-var health
+var max_health
+var health # is initialized as equal to max_health
+
 
 # State machine
 var current_state: EnemyState
@@ -23,6 +26,7 @@ func _ready() -> void:
 	super._ready()
 	entity_type = EntityType.HOSTILE
 	change_state(wander_state_instance)
+	health_bar_3d.init_health(max_health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,3 +65,16 @@ func can_target_dragon(dragon: Dragon) -> bool:
 
 	# All other enemies cannot attack flying dragons
 	return dragon.dragon_type != Dragon.DragonType.FLY
+	
+func take_damage(amount: float):
+	health -= amount
+	
+	# Update health bar here
+	health_bar_3d.update_health(health)
+	
+	if health <= 0:
+		die()
+		
+func die():
+	play_death_effect()
+	queue_free()

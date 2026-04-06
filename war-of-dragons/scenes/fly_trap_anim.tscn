@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://wndm7t6trlq2"]
 
-[ext_resource type="PackedScene" uid="uid://bih2w6iriouxe" path="res://artBlendObjects/flyTrapAnim.glb" id="1_n7p56"]
+[ext_resource type="PackedScene" uid="uid://do1pvy5jhjkdq" path="res://artBlendObjects/flyTrapAnim.glb" id="1_n7p56"]
 
 [node name="flyTrapAnim" unique_id=879022682 instance=ExtResource("1_n7p56")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1732241177) index="0" unique_id=376635131]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1720620281) index="0" unique_id=20914987]
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/1/rotation = Quaternion(-0.016482774, 0.0010746662, -0.0010829171, 0.9998631)
 bones/2/rotation = Quaternion(0.13017064, -0.028109701, 0.055011544, 0.98956513)

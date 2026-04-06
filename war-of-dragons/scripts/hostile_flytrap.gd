@@ -6,10 +6,14 @@ extends Hostile
 var flytrap_wander_state = preload("res://scripts/hostile_state_wander.gd").new()
 var flytrap_pursue_state = preload("res://scripts/hostile_state_pursue.gd").new()
 var flytrap_attack_state = preload("res://scripts/hostile_state_attack.gd").new()
+@onready var HealthBar = $HealthBar3D
 
 func _ready():
 	hostile_type = HostileType.FLYTRAP
-	health = 25
+	max_health = 25
+	health = max_health
+	HealthBar.position = Vector3(0, 7.5, 0)
+	HealthBar.scale = Vector3(5, 5, 5)
 	requires_facing_to_attack = false
 	
 

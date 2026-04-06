@@ -189,14 +189,15 @@ func _process_attack(delta: float):
 			$AttackTimer.stop()
 			return
 		
-		attack_target.health -= damage
+		#attack_target.health -= damages
+		attack_target.take_damage(damage)
 		print(attack_target.health)
 		
 		if attack_target.health <= 0:
 			var drop_position = attack_target.global_position
 			
-			attack_target.play_death_effect()
-			attack_target.queue_free()
+			#attack_target.play_death_effect()
+			#attack_target.queue_free()
 			attack_target = null
 			$AttackTimer.stop()
 			
