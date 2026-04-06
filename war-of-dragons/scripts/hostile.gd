@@ -50,6 +50,10 @@ func get_state():
 func can_target_dragon(dragon: Dragon) -> bool:
 	if not dragon:
 		return false
+	
+	# Do not target burrowing dragons
+	if dragon.is_untargetable():
+		return false
 
 	# Flytraps only attack flying dragons
 	if hostile_type == HostileType.FLYTRAP:

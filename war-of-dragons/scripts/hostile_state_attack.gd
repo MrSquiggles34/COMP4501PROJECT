@@ -23,6 +23,11 @@ func update(delta: float) -> void:
 	if not target_dragon or not is_instance_valid(target_dragon):
 		switch_to_wander()
 		return
+	
+	# Case: Burrow Dragon is underground
+	if not enemy.can_target_dragon(target_dragon):
+		switch_to_wander()
+		return
 
 	var to_target = target_dragon.global_position - enemy.global_position
 	to_target.y = 0

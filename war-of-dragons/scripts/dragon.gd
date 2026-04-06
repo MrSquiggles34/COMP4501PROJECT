@@ -314,3 +314,6 @@ func calculate_flocking() -> Vector3:
 		cohesion * cohesion_weight +
 		alignment * alignment_weight
 	)
+	
+func is_untargetable() -> bool:
+	return false

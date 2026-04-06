@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b1g6ouqvbroc0"]
+
+[ext_resource type="PackedScene" uid="uid://3m53baf343ub" path="res://art/world/sand.glb" id="1_rn8l5"]
+
+[node name="Node3D" type="Node3D" unique_id=2107104177]
+
+[node name="Sketchfab_Scene" parent="." unique_id=2126293922 instance=ExtResource("1_rn8l5")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
