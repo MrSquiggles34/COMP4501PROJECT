@@ -1,4 +1,5 @@
 extends Marker3D
+class_name Player
 
 @export var move_speed: float = 15.0
 @export var zoom_sensitivity: float = 20.0 

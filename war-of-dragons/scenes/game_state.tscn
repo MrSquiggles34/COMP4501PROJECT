@@ -3,8 +3,14 @@
 [ext_resource type="Script" uid="uid://cqndwg6nnxgwq" path="res://scripts/camera_control.gd" id="1_018ao"]
 [ext_resource type="Script" uid="uid://camda4v1t1sd4" path="res://scripts/game_state.gd" id="1_ukbay"]
 [ext_resource type="PackedScene" uid="uid://dw880124lcimr" path="res://scenes/map_system.tscn" id="2_018ao"]
+[ext_resource type="Script" uid="uid://bnnl56qf7ib3" path="res://scripts/minimap.gd" id="4_2cevy"]
 [ext_resource type="Script" uid="uid://cibcr6l8est7x" path="res://scripts/selection_box.gd" id="4_gu6ud"]
+[ext_resource type="PackedScene" uid="uid://dygpekjkolmcn" path="res://scenes/icon_component.tscn" id="5_3oy0g"]
 [ext_resource type="PackedScene" uid="uid://dtsqjgug2ee72" path="res://scenes/ui.tscn" id="6_2cevy"]
+[ext_resource type="Texture2D" uid="uid://dyratrl3owfya" path="res://icon.png" id="6_3oy0g"]
+[ext_resource type="Script" uid="uid://byw7nur3r1epk" path="res://scripts/minimap_cam.gd" id="7_q5byu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0ebsy"]
 
 [node name="GameState" type="Node3D" unique_id=465853294]
 script = ExtResource("1_ukbay")
@@ -68,8 +74,8 @@ text = "Save and Quit"
 
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
-[node name="Marker3D" type="Marker3D" parent="PlayerCameraNode" unique_id=861034217]
-transform = Transform3D(1, 0, 0, 0, 0.85266745, 0.5224539, 0, -0.5224539, 0.85266745, -32.22888, 9.3785715, 35.06301)
+[node name="Marker3D" type="Marker3D" parent="PlayerCameraNode" unique_id=861034217 groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 0.85266745, 0.5224539, 0, -0.5224539, 0.85266745, -12.926428, 9.3785715, 59.15265)
 script = ExtResource("1_018ao")
 move_speed = 25.0
 zoom_sensitivity = 100.0
@@ -78,6 +84,40 @@ zoom_out_bound = 10.0
 
 [node name="PlayerCamera" type="Camera3D" parent="PlayerCameraNode/Marker3D" unique_id=1093098968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+cull_mask = 524287
+
+[node name="IconComponent" parent="PlayerCameraNode/Marker3D" unique_id=1909600677 instance=ExtResource("5_3oy0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+map_icon = ExtResource("6_3oy0g")
+
+[node name="Control" type="Control" parent="PlayerCameraNode" unique_id=514587187 node_paths=PackedStringArray("minimap_rect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_2cevy")
+minimap_rect = NodePath("MarginContainer/MinimapRect")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerCameraNode/Control" unique_id=601501853]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MinimapRect" type="TextureRect" parent="PlayerCameraNode/Control/MarginContainer" unique_id=543080182]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = SubResource("PlaceholderTexture2D_0ebsy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=733590100]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 120, 0)
@@ -96,5 +136,15 @@ mouse_filter = 2
 script = ExtResource("4_gu6ud")
 
 [node name="Map" parent="." unique_id=1208725545 instance=ExtResource("2_018ao")]
+
+[node name="MinimapViewport" type="SubViewport" parent="." unique_id=93892921]
+size = Vector2i(256, 256)
+
+[node name="MinimapCam" type="Camera3D" parent="MinimapViewport" unique_id=1247396469]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -88.62283, 50, -48.319935)
+projection = 1
+current = true
+size = 50.0
+script = ExtResource("7_q5byu")
 
 [connection signal="pressed" from="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
