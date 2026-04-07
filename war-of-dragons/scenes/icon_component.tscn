@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dygpekjkolmcn"]
+
+[ext_resource type="Script" uid="uid://d3l7hdfamty8h" path="res://scripts/icon_component.gd" id="1_klo45"]
+
+[node name="IconComponent" type="Node3D" unique_id=1909600677]
+script = ExtResource("1_klo45")
+
+[node name="IconSprite" type="Sprite3D" parent="." unique_id=1423059424]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+layers = 524288
+axis = 1
+no_depth_test = true
+fixed_size = true
