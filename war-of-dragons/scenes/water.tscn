@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b0xscivfbc3ix"]
 
 [ext_resource type="Shader" uid="uid://dmrmds4wfxhe2" path="res://shaders/water.tres" id="1_bdk6y"]
+[ext_resource type="Script" uid="uid://c-water-script" path="res://scripts/water.gd" id="2_bdk6y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3811"]
 render_priority = 0
@@ -13,7 +14,18 @@ size = Vector2(10, 10)
 subdivide_width = 20
 subdivide_depth = 20
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bdk6y"]
+size = Vector3(10, 0.16278076, 10)
+
 [node name="Node3D" type="Node3D" unique_id=769643828]
+script = ExtResource("2_bdk6y")
 
 [node name="waterMat" type="MeshInstance3D" parent="." unique_id=1634164470]
 mesh = SubResource("PlaneMesh_p1n2c")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1763541653]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2024628944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0016784668, 0)
+shape = SubResource("BoxShape3D_bdk6y")
+

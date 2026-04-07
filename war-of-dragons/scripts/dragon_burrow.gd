@@ -12,6 +12,9 @@ func _ready():
 	dragon_type = DragonType.BURROW
 	damage = 1.0
 	
+	# Collide with burrow-only obstacles (Rock Region Blocker)
+	collision_mask |= 2
+	
 	# Set two models to swap between
 	dirt_visual = BURROW_DIRT_SCENE.instantiate()
 	add_child(dirt_visual)
