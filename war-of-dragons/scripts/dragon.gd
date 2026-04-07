@@ -18,6 +18,7 @@ var bump_speed: float = 10.0
 var home_base: Base
 var damage: float
 var flag: bool = false
+var speed_multiplier: float = 1.0
 
 const CollectibleScene = preload("res://scenes/collectible.tscn") #collectible scene to spawn collectibles when enemies die
 
@@ -143,8 +144,8 @@ func _process_movement(delta: float):
 			# rotate dragon to face movement direction
 			look_at(global_position + direction, up_vector)
 			
-			velocity.x = direction.x * move_speed
-			velocity.z = direction.z * move_speed
+			velocity.x = direction.x * move_speed * speed_multiplier
+			velocity.z = direction.z * move_speed * speed_multiplier
 		else:
 			velocity.x = 0
 			velocity.z = 0
@@ -318,3 +319,7 @@ func calculate_flocking() -> Vector3:
 	
 func is_untargetable() -> bool:
 	return false
+
+func die():
+	play_death_effect()
+	queue_free()

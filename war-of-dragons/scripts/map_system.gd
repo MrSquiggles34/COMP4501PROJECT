@@ -9,6 +9,61 @@ func _ready() -> void:
 	save_timer.autostart = true
 	save_timer.timeout.connect(save_collectibles_async)
 	add_child(save_timer)
+	
+	_setup_mud_area()
+	_setup_rock_area()
+
+func _setup_mud_area() -> void:
+	var mud_static = get_node_or_null("NavigationRegion3D/MudRegion")
+	if not mud_static:
+		return
+		
+	# Create Area3D for mud detection dynamically since we can't edit the large .tscn file easily
+	var area = Area3D.new()
+	area.name = "MudDetectionArea"
+	mud_static.add_child(area)
+	
+	# Copy collision shape
+	var source_col = mud_static.get_node_or_null("CollisionShape3D")
+	if source_col:
+		var new_col = CollisionShape3D.new()
+		new_col.shape = source_col.shape
+		area.add_child(new_col)
+	
+	area.body_entered.connect(_on_mud_body_entered)
+	area.body_exited.connect(_on_mud_body_exited)
+
+func _on_mud_body_entered(body: Node3D) -> void:
+	if body is Dragon:
+		if body.dragon_type == Dragon.DragonType.GROUND or body.dragon_type == Dragon.DragonType.BURROW:
+			print("Dragon entering mud: ", body.name)
+			body.speed_multiplier = 0.3
+
+func _on_mud_body_exited(body: Node3D) -> void:
+	if body is Dragon:
+		if body.dragon_type == Dragon.DragonType.GROUND or body.dragon_type == Dragon.DragonType.BURROW:
+			print("Dragon exiting mud: ", body.name)
+			body.speed_multiplier = 1.0
+
+func _setup_rock_area() -> void:
+	var rock_area = get_node_or_null("NavigationRegion3D/RockRegion")
+	if not rock_area:
+		return
+		
+	# Create a StaticBody3D that only the burrow dragon will collide with
+	var blocker = StaticBody3D.new()
+	blocker.name = "BurrowBlocker"
+	# Layer 2 (Bit 1) is reserved for blocking burrowing movement
+	blocker.collision_layer = 2 
+	blocker.collision_mask = 0
+	rock_area.add_child(blocker)
+	
+	# Copy detection shape from Area3D
+	var source_col = rock_area.get_node_or_null("CollisionShape3D")
+	if source_col:
+		var new_col = CollisionShape3D.new()
+		new_col.shape = source_col.shape
+		blocker.add_child(new_col)
 
 var game_timer_started := false
 var game_time_remaining := 300.0
