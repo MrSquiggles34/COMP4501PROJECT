@@ -2,6 +2,14 @@
 
 [ext_resource type="Script" uid="uid://druypli1h3ykx" path="res://scripts/main_menu.gd" id="1_mmn"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
+bg_color = Color(0.33333334, 0.7647059, 0.9843137, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0.946238, 0.609769, 0)
+
 [node name="MainMenu" type="Control" unique_id=1986121503]
 layout_mode = 3
 anchors_preset = 15
@@ -55,12 +63,86 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Load Game"
 
+[node name="How to Play" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox" unique_id=291860239]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "How to Play"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsVBox" unique_id=551531629]
 custom_minimum_size = Vector2(250, 65)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Quit"
 
+[node name="HowToPlayPanel" type="Panel" parent="CenterContainer" unique_id=1285550416]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6cm7")
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer/HowToPlayPanel" unique_id=2062087466]
+layout_mode = 0
+offset_left = -497.0
+offset_top = -283.0
+offset_right = 504.0
+offset_bottom = 283.0
+color = Color(0.348, 0.6959999, 0.87, 0.9607843)
+
+[node name="HowToPlayLabel" type="Label" parent="CenterContainer/HowToPlayPanel" unique_id=2146856583]
+layout_mode = 0
+offset_left = -131.0
+offset_top = -245.0
+offset_right = 139.0
+offset_bottom = -173.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "HOW TO PLAY"
+
+[node name="HowToPlayText" type="RichTextLabel" parent="CenterContainer/HowToPlayPanel" unique_id=1903419223]
+layout_mode = 0
+offset_left = -455.0
+offset_top = -176.0
+offset_right = 445.0
+offset_bottom = 256.0
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "Welcome to Dragon Daycare! The king has appointed thee as the royal dragon breeder. He wants many dragons, but hasn’t given you enough funding. No worries! The Dragon Daycare is self-sufficient. [b]Send dragons out on expeditions, gather as many resources as possible before the day ends, and grow your dragon army![/b]
+
+[b]Controls: [/b]
+-- Select with [b]left click[/b].
+-- Select many dragons with left-click-drag.
+-- Selected dragons can move, attack enemies, or collect eggs and coins by [b]right-clicking[/b].
+-- Select the [b]Dragon Nursery[/b] to purchase new dragons with eggs and coins.
+-- Pan the camera with [b]WASD[/b] and zoom with mousel wheel.
+
+[b]Dragons:[/b]
+-- Blue Dragon: Medium attack, medium speed.
+-- Burrow Dragon: High damage, low speed. Cannot collect items. Invincible while burrowing. 
+-- Flying Dragon: Low damage. High speed. Immune to most enemies, but weak to fly traps. 
+
+[b]Enemies:[/b]
+-- Mushroom: Passive.
+-- Slime: Hostile, weak enemy.
+-- Flytrap: Hostile, only targets flying dragons.
+-- Golem: Hostile, strong enemy. 
+
+[b]Terrain: [/b]
+-- Dragons are slowed in the mud
+-- Dragons drown in water after two seconds
+-- Burrow Dragons cannot cross rocky surfaces. 
+"
+
+[node name="HowToPlayBackButton" type="Button" parent="CenterContainer/HowToPlayPanel" unique_id=185271186]
+layout_mode = 0
+offset_left = 404.0
+offset_top = -249.0
+offset_right = 458.0
+offset_bottom = -208.0
+text = "X"
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsVBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsVBox/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsVBox/How to Play" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/HowToPlayPanel/HowToPlayBackButton" to="." method="_on_how_to_play_back_button_pressed"]
