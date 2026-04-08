@@ -70,7 +70,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Save and Quit"
 
-[node name="UI" parent="." unique_id=1807322550 instance=ExtResource("6_2cevy")]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=2024102410]
+layer = 10
+
+[node name="UI" parent="UILayer" unique_id=1807322550 instance=ExtResource("6_2cevy")]
 
 [node name="PlayerCameraNode" type="Node3D" parent="." unique_id=239011046]
 
