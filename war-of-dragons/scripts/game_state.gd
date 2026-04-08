@@ -84,6 +84,25 @@ func save_game() -> void:
 			}
 			save_data["hostiles"].append(hostile_data)
 			
+	# Save Base Resources
+	if Global.base:
+		save_data["eggs"] = Global.base.money
+		save_data["coins"] = Global.base.coins
+		
+	# Save Collectibles
+	save_data["collectibles"] = []
+	var collectibles_container = $Map/Entities/Collectibles
+	for child in collectibles_container.get_children():
+		if child is Collectible:
+			var c_data = {
+				"type": Collectible.CollectibleType.keys()[child.collectible_type],
+				"pos_x": child.global_position.x,
+				"pos_y": child.global_position.y,
+				"pos_z": child.global_position.z,
+				"worth": child.worth
+			}
+			save_data["collectibles"].append(c_data)
+			
 	var json_string = JSON.stringify(save_data)
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	if file:
@@ -127,7 +146,17 @@ func load_game() -> void:
 	var hostile_slime_scene = load("res://scenes/hostile_slime.tscn")
 	var hostile_mushroom_scene = load("res://scenes/hostile_mushroom.tscn")
 	
-	var collectible_scene = load("res://scenes/collectible.tscn")
+	var collectible_egg_scene = load("res://scenes/collectible.tscn")
+	var collectible_coin_scene = load("res://scenes/collectible_coin.tscn")
+	
+	# Load Base Resources
+	if Global.base:
+		if save_data.has("eggs"):
+			Global.base.money = save_data["eggs"]
+			Global.base.money_changed.emit(Global.base.money)
+		if save_data.has("coins"):
+			Global.base.coins = save_data["coins"]
+			Global.base.coins_changed.emit(Global.base.coins)
 	
 	if save_data.has("dragons"):
 		for dragon_data in save_data["dragons"]:
@@ -167,9 +196,18 @@ func load_game() -> void:
 			
 	if save_data.has("collectibles"):
 		for c_data in save_data["collectibles"]:
-			var new_collectible = collectible_scene.instantiate()
+			var type_str = c_data.get("type", "EGG")
+			var new_collectible
+			
+			if type_str == "COIN":
+				new_collectible = collectible_coin_scene.instantiate()
+			else:
+				new_collectible = collectible_egg_scene.instantiate()
+				
 			collectibles_container.add_child(new_collectible)
 			new_collectible.global_position = Vector3(c_data["pos_x"], c_data["pos_y"], c_data["pos_z"])
+			if c_data.has("worth"):
+				new_collectible.worth = c_data["worth"]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
