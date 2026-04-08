@@ -6,6 +6,7 @@ extends Node3D
 @onready var dragons_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/DragonsLabel
 @onready var enemies_label = $GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer/EnemiesLabel
 @onready var entities_container = $Map/Entities
+@onready var ui = $UILayer/UI
 
 #NOTE: Before accessing these arrays, you should call clean_entities()
 var entities: Array[Entity] = []
@@ -208,7 +209,7 @@ func get_all_entities(node: Node) -> Array[Entity]:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_interface"):
 		$PlayerCameraNode/Control.visible = not $PlayerCameraNode/Control.visible
-		$UI.visible = not $UI.visible
+		$UILayer/UI.visible = not $UILayer/UI.visible
 		game_interface.visible = not game_interface.visible
 		
 		if game_interface.visible:
@@ -304,6 +305,10 @@ func select_unit(mouse_pos: Vector2) -> void:
 		selected_entities.append(foundUnit)
 		foundUnit.set_selected(true)
 		print("Selected:", result.collider.name)
+		
+		# Open purchase menu if Base is selected
+		if foundUnit is Base:
+			ui.toggle_purchase_menu(true)
 
 func select_units_in_rectangle():
 	clean_entities()
