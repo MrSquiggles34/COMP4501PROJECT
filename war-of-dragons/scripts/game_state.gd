@@ -207,7 +207,10 @@ func get_all_entities(node: Node) -> Array[Entity]:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_interface"):
+		$PlayerCameraNode/Control.visible = not $PlayerCameraNode/Control.visible
+		$UI.visible = not $UI.visible
 		game_interface.visible = not game_interface.visible
+		
 		if game_interface.visible:
 			_update_interface_stats()
 		get_viewport().set_input_as_handled()

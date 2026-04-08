@@ -4,16 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://b2l10f8y4lnpq" path="res://art/world/stilized_house.glb" id="2_baglu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_baglu"]
-size = Vector3(1.911377, 1, 1.6135254)
+size = Vector3(0.4529724, 1, 0.8260803)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ova01"]
-radius = 3.503418
+radius = 1.1479492
 
 [node name="Base" type="CharacterBody3D" unique_id=2059206151]
 script = ExtResource("1_y5r8t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1258485865]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -0.8130219, 1.737031, -0.11407471)
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -0.3318894, 1.737031, -0.013725281)
 shape = SubResource("BoxShape3D_baglu")
 
 [node name="Model" type="Node3D" parent="." unique_id=1563680502]
@@ -25,4 +25,5 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="AreaSensor" type="CollisionShape3D" parent="Area3D" unique_id=858336222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49186826, 0, 0)
 shape = SubResource("CylinderShape3D_ova01")

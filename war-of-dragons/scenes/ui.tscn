@@ -29,6 +29,14 @@ justification_flags = 161
 layout_mode = 2
 text = "0"
 
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=527367653]
+layout_mode = 2
+text = "Coins: "
+
+[node name="CoinValueLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1419946101]
+layout_mode = 2
+text = "0"
+
 [node name="TimerLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1384767057]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32

@@ -49,7 +49,7 @@ theme_override_constants/separation = 20
 [node name="TitleLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=883112]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Care Menu"
+text = "Pause Menu"
 horizontal_alignment = 1
 
 [node name="DragonsLabel" type="Label" parent="GameInterfaceLayer/GameInterface/CenterContainer/VBoxContainer" unique_id=233411]

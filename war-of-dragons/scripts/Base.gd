@@ -1,9 +1,10 @@
 class_name Base
 extends Entity
 
-var money
-var target: Collectible = null
-signal money_changed(new_money) #custom signal to set the test in 'ui'  for the player to read their money value
+var money = 0
+var coins = 0
+signal money_changed(new_money)
+signal coins_changed(new_coins)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,10 +24,20 @@ func _process(delta):
 	pass
 
 func collect(target):
-	money += target.getValue() #check to see if there is a collectible for the base to collect nearby
-	money_changed.emit(money)
-	target.queue_free() #delete object
-	target = null
+	var value = target.getValue()
+	if value == null:
+		value = 0.0
+		
+	if target is Collectible and target.collectible_type == Collectible.CollectibleType.COIN:
+		coins += value
+		print("Coin collected! Value: ", value, " Total coins: ", coins)
+		coins_changed.emit(coins)
+	else:
+		money += value
+		print("Egg collected! Value: ", value, " Total eggs: ", money)
+		money_changed.emit(money)
+		
+	target.queue_free()
 	
 func _on_body_entered(target):
 	print("trying to collect")
