@@ -90,7 +90,8 @@ func _physics_process(delta: float) -> void:
 				# Switch to CARRYING once close
 				# also potentially handled by the on_body_entered, this method may be preferable instead
 				if global_position.distance_to(collectible_target.global_position) <= collect_distance:
-					set_state(DragonState.CARRYING)
+					if dragon_type != DragonType.BURROW:
+						set_state(DragonState.CARRYING)
 			else:
 				attack_target = null
 				collectible_target = null
@@ -117,11 +118,9 @@ func _process_movement(delta: float):
 		set_state(DragonState.IDLE)
 		return
 	else:
-		#print("navigation not finished")
 		var next_position: Vector3 = agent.get_next_path_position()
 		var direction: Vector3 = next_position - global_position
 		
-		#if dragon_type == DragonType.GROUND or dragon_type == DragonType.BURROW:
 		direction.y = 0  
 		
 		if direction.length() > 0.1:
@@ -181,8 +180,6 @@ func _process_attack(delta: float):
 	velocity = direction * bump_speed
 	
 	if $AttackTimer.is_stopped():
-		print("attempting to emit timeout1")
-		#$AttackTimer.emit_signal("timeout1")
 		$AttackTimer.start($AttackTimer.wait_time)
 		
 	if $AttackTimer.get_time_left() < 0.01:
@@ -209,7 +206,6 @@ func _process_carrying(delta):
 	
 		
 	if agent.is_navigation_finished():
-		print("trying to collect through process_carrying")
 		if collectible_target:
 			home_base.collect(collectible_target) #this is already done with the base on body enter
 			collectible_target.queue_free()
@@ -218,7 +214,7 @@ func _process_carrying(delta):
 		
 
 func _on_attack_timer_timeout():
-	print("timing out") #does nothing but here nonetheless to help
+	pass
 	
 	
 # Change the state of the dragon & print
