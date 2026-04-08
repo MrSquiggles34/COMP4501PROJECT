@@ -195,22 +195,8 @@ func _process_attack(delta: float):
 		print(attack_target.health)
 		
 		if attack_target.health <= 0:
-			var drop_position = attack_target.global_position
-			
-			#attack_target.play_death_effect()
-			#attack_target.queue_free()
 			attack_target = null
 			$AttackTimer.stop()
-			
-			#spawn collectible
-			var collectible = CollectibleScene.instantiate()
-			collectible.setValue(50.0)
-			var coll_container = get_node_or_null("../../../Collectibles")
-			if coll_container:
-				coll_container.add_child(collectible)
-			else:
-				get_parent().add_child(collectible)
-			collectible.global_position = drop_position #drop collectible at the position of the enemy
 			set_state(DragonState.IDLE)
 			
 		

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://631sabipujqt" path="res://scenes/health_bar_3d.tscn" id="3_tyo3d"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2xk0l"]
+radius = 0.608691
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1894574916]
 script = ExtResource("2_tyo3d")

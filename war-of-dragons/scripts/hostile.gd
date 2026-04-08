@@ -75,6 +75,32 @@ func take_damage(amount: float):
 	if health <= 0:
 		die()
 		
+const CollectibleCoinScene = preload("res://scenes/collectible_coin.tscn")
+const CollectibleEggScene = preload("res://scenes/collectible.tscn")
+
 func die():
 	play_death_effect()
+	
+	# Spawn collectibles
+	var coin = CollectibleCoinScene.instantiate()
+	var egg = CollectibleEggScene.instantiate()
+	
+	if coin.has_method("setValue"):
+		coin.setValue(10)
+	if egg.has_method("setValue"):
+		egg.setValue(1)
+	
+	# Add to scene
+	var coll_container = get_node_or_null("../../../Collectibles")
+	if coll_container:
+		coll_container.add_child(coin)
+		coll_container.add_child(egg)
+	else:
+		get_parent().add_child(coin)
+		get_parent().add_child(egg)
+	
+	# Offset them slightly so they don't overlap perfectly
+	coin.global_position = global_position + Vector3(0.5, 0, 0)
+	egg.global_position = global_position + Vector3(-0.5, 0, 0)
+		
 	queue_free()
