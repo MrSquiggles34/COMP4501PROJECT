@@ -13,6 +13,12 @@ func _ready() -> void:
 	_setup_mud_area()
 	_setup_rock_area()
 
+var game_timer_started := false
+var game_time_remaining := 300.0
+var game_over_triggered := false
+
+@onready var anim_player: AnimationPlayer = $WorldEnvironment/AnimationPlayer
+
 func _setup_mud_area() -> void:
 	var mud_static = get_node_or_null("NavigationRegion3D/MudRegion")
 	if not mud_static:
@@ -65,22 +71,19 @@ func _setup_rock_area() -> void:
 		new_col.shape = source_col.shape
 		blocker.add_child(new_col)
 
-var game_timer_started := false
-var game_time_remaining := 300.0
-var game_over_triggered := false
-
-@onready var anim_player: AnimationPlayer = $WorldEnvironment/AnimationPlayer
-
 func _process(delta: float) -> void:
 	if game_over_triggered:
 		return
 		
 	if not game_timer_started:
-		if anim_player.is_playing() and anim_player.current_animation == "daynightcycle":
-			if anim_player.current_animation_position >= 30.0:
-				game_timer_started = true
+		if anim_player.is_playing() and anim_player.current_animation == "daynightcycle": #not working for some reason
+			#if anim_player.current_animation_position >= 30.0: # prep time
+			game_timer_started = true
+			print("Starting game timer")
+		
 	else:
 		game_time_remaining -= delta
+		#print("Attempting to update game timer")
 		_update_ui_timer()
 		
 		if game_time_remaining <= 0:
@@ -88,11 +91,12 @@ func _process(delta: float) -> void:
 			_trigger_game_over()
 
 func _update_ui_timer() -> void:
-	var ui = get_parent().get_node_or_null("UI")
+	var ui = get_parent().get_node_or_null("UILayer/UI")
 	if ui and ui.has_node("CenterContainer/VBoxContainer/TimerLabel"):
 		var label = ui.get_node("CenterContainer/VBoxContainer/TimerLabel")
 		var minutes := int(game_time_remaining) / 60
 		var seconds := int(game_time_remaining) % 60
+		print("The label should be updated")
 		label.text = "%d:%02d" % [minutes, seconds]
 
 func _trigger_game_over() -> void:
