@@ -19,6 +19,9 @@ func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
 	game_interface.visible = false # Ensure it's hidden at start
 	initialize_game(Global.load_from_save)
+	
+	if Global.base:
+		Global.base.dragon_purchased.connect(_on_dragon_purchased)
 
 func initialize_game(is_loading: bool) -> void:
 	if is_loading and FileAccess.file_exists(save_path):
@@ -442,3 +445,6 @@ func assign_containers_to_hostiles():
 	for hostile in hostiles_container.get_children():
 		if hostile is Hostile:
 			hostile.dragons_container = dragons_container
+
+func _on_dragon_purchased(new_dragon: Dragon) -> void:
+	entities.append(new_dragon)
