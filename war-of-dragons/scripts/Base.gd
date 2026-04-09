@@ -45,6 +45,7 @@ func spawn_dragon(type: String):
 		"FLY": dragon_scene = DRAGON_FLY_SCENE
 	
 	var new_dragon = dragon_scene.instantiate()
+
 	
 	# Try to find the correct container
 	var dragons_container = get_node_or_null("/root/GameState/Map/Entities/DynamicEntity/Dragons")
@@ -62,7 +63,7 @@ func spawn_dragon(type: String):
 		
 	# Offset slightly to avoid exact overlap if buying many
 	var offset = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
-	new_dragon.global_position = Vector3(-9, 2, 45) + offset
+	new_dragon.global_position = Vector3(-9, 0, 45) + offset
 	dragon_purchased.emit(new_dragon)
 	print("Spawned ", type, " dragon at ", new_dragon.global_position)
 
