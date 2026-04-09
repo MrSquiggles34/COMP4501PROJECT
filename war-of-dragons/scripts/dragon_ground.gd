@@ -16,7 +16,7 @@ func _process(delta):
 		DragonState.IDLE:
 			if anim_player.current_animation != "Idle" or !anim_player.is_playing():
 				anim_player.play("Idle")
-		DragonState.MOVING, DragonState.APPROACHING:
+		DragonState.MOVING, DragonState.APPROACHING, DragonState.CARRYING:
 			if anim_player.current_animation != "Walk" or !anim_player.is_playing():
 				anim_player.play("Walk")
 		DragonState.ATTACKING:

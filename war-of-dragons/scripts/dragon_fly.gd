@@ -13,7 +13,7 @@ func _process(delta):
 	super._process(delta)
 	
 	match state:
-		DragonState.IDLE, DragonState.MOVING, DragonState.APPROACHING:
+		DragonState.IDLE, DragonState.MOVING, DragonState.APPROACHING, DragonState.CARRYING:
 			if anim_player.current_animation != "idle" or !anim_player.is_playing():
 				anim_player.play("idle")
 		DragonState.ATTACKING:
