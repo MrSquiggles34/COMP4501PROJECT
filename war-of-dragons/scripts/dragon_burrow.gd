@@ -10,7 +10,7 @@ const BURROW_DIRT_SCENE = preload("res://scenes/burrow_dirt.tscn")
 func _ready():
 	super._ready()
 	dragon_type = DragonType.BURROW
-	damage = 1.0
+	damage = 4.0
 	
 	# Collide with burrow-only obstacles (Rock Region Blocker)
 	collision_mask |= 2
@@ -46,4 +46,4 @@ func update_burrow_visual():
 		dirt_visual.hide()
 
 func is_untargetable() -> bool:
-	return state == DragonState.APPROACHING
+	return state == DragonState.APPROACHING or state == DragonState.MOVING

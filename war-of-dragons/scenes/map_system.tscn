@@ -28,6 +28,8 @@
 [ext_resource type="Script" uid="uid://bbemb65axj6at" path="res://addons/proton_scatter/src/scatter_item.gd" id="18_bj6by"]
 [ext_resource type="Script" uid="uid://dnungm62kp4pj" path="res://addons/proton_scatter/src/scatter_shape.gd" id="19_ymnvb"]
 [ext_resource type="Script" uid="uid://k7fc0dxn3nue" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="20_xsc1h"]
+[ext_resource type="PackedScene" uid="uid://dei0wun23mwd7" path="res://scenes/collectible.tscn" id="21_lxvux"]
+[ext_resource type="PackedScene" uid="uid://clx1fdqrq0v6e" path="res://scenes/collectible_coin.tscn" id="21_nfjpr"]
 
 [sub_resource type="Curve" id="Curve_jpwmp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.12, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74), 0.0, 0.0, 0, 0]
@@ -606,6 +608,39 @@ shape = SubResource("Resource_g8bsm")
 
 [node name="Collectibles" type="Node3D" parent="Entities" unique_id=1325690595]
 
+[node name="CharacterBody3D5" parent="Entities/Collectibles" unique_id=1408933176 instance=ExtResource("21_nfjpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.29888, 0, 57.45056)
+
+[node name="CharacterBody3D4" parent="Entities/Collectibles" unique_id=393053742 instance=ExtResource("21_nfjpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.16061, 0, 57.051052)
+
+[node name="CharacterBody3D3" parent="Entities/Collectibles" unique_id=1667279337 instance=ExtResource("21_nfjpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.973175, 0, 54.901634)
+
+[node name="CharacterBody3D2" parent="Entities/Collectibles" unique_id=658109263 instance=ExtResource("21_nfjpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.943405, 0, 58.473465)
+
+[node name="CharacterBody3D" parent="Entities/Collectibles" unique_id=535516581 instance=ExtResource("21_nfjpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 61)
+
+[node name="Collectible3" parent="Entities/Collectibles" unique_id=1995799681 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8805733, -0.27456856, -205.9769)
+
+[node name="Collectible2" parent="Entities/Collectibles" unique_id=948299204 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5612326, 0.37229156, -207.32135)
+
+[node name="Collectible5" parent="Entities/Collectibles" unique_id=1659161788 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -313.33527, 0.2111969, 32.747086)
+
+[node name="Collectible4" parent="Entities/Collectibles" unique_id=1195425144 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.52284, 0.3147149, -85.88609)
+
+[node name="Collectible6" parent="Entities/Collectibles" unique_id=952459250 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -154.01053, -0.18995094, -89.52379)
+
+[node name="Collectible" parent="Entities/Collectibles" unique_id=780993018 instance=ExtResource("21_lxvux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.59142, 0.41823292, -88.2339)
+
 [node name="DynamicEntity" type="Node3D" parent="Entities" unique_id=2085708710]
 
 [node name="Dragons" type="Node3D" parent="Entities/DynamicEntity" unique_id=1418918280]
@@ -637,16 +672,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.547953, 0, 1.5269184)
 [node name="Hostiles" type="Node3D" parent="Entities/DynamicEntity" unique_id=2147119004]
 
 [node name="HostileGolem2" parent="Entities/DynamicEntity/Hostiles" unique_id=328114888 instance=ExtResource("6_bguoe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.222008, 4, -214.92346)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.426632, 4, -214.92346)
 
 [node name="HostileGolem3" parent="Entities/DynamicEntity/Hostiles" unique_id=407469195 instance=ExtResource("6_bguoe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.27897, 2.934555, -83.90967)
+
+[node name="HostileGolem4" parent="Entities/DynamicEntity/Hostiles" unique_id=668755974 instance=ExtResource("6_bguoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -192.48204, 4, -287.40613)
 
 [node name="HostileGolem" parent="Entities/DynamicEntity/Hostiles" unique_id=938163978 instance=ExtResource("6_bguoe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -196.28212, 2, -264.02945)
 
 [node name="HostileMushroom5" parent="Entities/DynamicEntity/Hostiles" unique_id=984339574 instance=ExtResource("7_jpwmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.076347, 1.6538315, -133.93759)
+gravity = 9.8
+hostile_type = 0
+move_speed = 5.0
+
+[node name="HostileMushroom8" parent="Entities/DynamicEntity/Hostiles" unique_id=1915921900 instance=ExtResource("7_jpwmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.78943, 3.307663, -283.04767)
+gravity = 9.8
+hostile_type = 0
+move_speed = 5.0
+
+[node name="HostileMushroom7" parent="Entities/DynamicEntity/Hostiles" unique_id=747669792 instance=ExtResource("7_jpwmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.356937, 1.6538315, -281.47174)
 gravity = 9.8
 hostile_type = 0
 move_speed = 5.0
@@ -675,14 +725,46 @@ gravity = 9.8
 hostile_type = 0
 move_speed = 5.0
 
+[node name="HostileSlime11" parent="Entities/DynamicEntity/Hostiles" unique_id=2139385439 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.68173, 2.4174576, -184.85371)
+
+[node name="HostileSlime10" parent="Entities/DynamicEntity/Hostiles" unique_id=1283708784 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.53076, 2.1651917, -176.73761)
+
+[node name="HostileSlime9" parent="Entities/DynamicEntity/Hostiles" unique_id=1179027688 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.090324, 1.0825958, -158.3468)
+
+[node name="HostileSlime8" parent="Entities/DynamicEntity/Hostiles" unique_id=1438007668 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.162224, 1.7647018, -173.10971)
+
+[node name="HostileSlime7" parent="Entities/DynamicEntity/Hostiles" unique_id=1349182973 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.02272, 0.8823509, -165.35565)
+
+[node name="HostileSlime6" parent="Entities/DynamicEntity/Hostiles" unique_id=906215839 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.58651, 1.722662, -158.54124)
+
 [node name="HostileSlime3" parent="Entities/DynamicEntity/Hostiles" unique_id=2073776586 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.785084, 4.4123507, -130.43121)
+
+[node name="HostileSlime4" parent="Entities/DynamicEntity/Hostiles" unique_id=81376412 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.809978, 3.979168, -199.35692)
 
 [node name="HostileSlime2" parent="Entities/DynamicEntity/Hostiles" unique_id=588126732 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.107517, 4.564825, -119.79256)
 
+[node name="HostileSlime5" parent="Entities/DynamicEntity/Hostiles" unique_id=693129449 instance=ExtResource("8_f6vr5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.304726, 3.053234, -275.7823)
+
 [node name="HostileSlime" parent="Entities/DynamicEntity/Hostiles" unique_id=260435812 instance=ExtResource("8_f6vr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.23544, 3, -104.456245)
+
+[node name="HostileFlytrap4" parent="Entities/DynamicEntity/Hostiles" unique_id=1894574916 instance=ExtResource("9_pq012")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.757935, 1.8168564, -271.37534)
+move_speed = 0.0
+
+[node name="HostileFlytrap3" parent="Entities/DynamicEntity/Hostiles" unique_id=1208442024 instance=ExtResource("9_pq012")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.31993, 2.4683075, -257.05615)
+move_speed = 0.0
 
 [node name="HostileFlytrap2" parent="Entities/DynamicEntity/Hostiles" unique_id=2077584686 instance=ExtResource("9_pq012")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.537277, 4, -202.75575)
@@ -691,6 +773,12 @@ move_speed = 0.0
 [node name="HostileFlytrap" parent="Entities/DynamicEntity/Hostiles" unique_id=971431266 instance=ExtResource("9_pq012")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.453354, 2, -103.654106)
 move_speed = 0.0
+
+[node name="HostileMushroom6" parent="Entities/DynamicEntity/Hostiles" unique_id=221247292 instance=ExtResource("7_jpwmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.479883, 1.6538315, -44.72941)
+gravity = 9.8
+hostile_type = 0
+move_speed = 5.0
 
 [node name="Base" parent="Entities" unique_id=2059206151 instance=ExtResource("13_0ebsy")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 7.342228, 0.08556175, 59.14042)

@@ -104,7 +104,7 @@ func find_closest_dragon_in_cone() -> Dragon:
 
 		var dist_sq = to_dragon.length_squared()
 
-		# Distance check (cheap)
+		# Distance check 
 		if dist_sq > vision_distance * vision_distance:
 			continue
 

@@ -302,10 +302,35 @@ func _input(event: InputEvent) -> void:
 					if entity is Dragon:
 						entity.attack(clicked_entity)
 			elif clicked_entity is Collectible:
-				#move dragons to collectible to start carrying
+				# Move dragons to collectible to start carrying
+				var carrier: Dragon = null
+				var closest_dist := INF
+				
+				# Pick closest selected dragon IF ITS NOT A BURROW
 				for entity in selected_entities:
 					if entity is Dragon:
-						entity.carry(clicked_entity)
+						if entity.dragon_type == Dragon.DragonType.BURROW:
+							continue
+						
+						var dist = entity.global_position.distance_squared_to(clicked_entity.global_position)
+
+						if dist < closest_dist:
+							closest_dist = dist
+							carrier = entity
+							
+				if carrier:
+					# Remove from flock
+					carrier.set_flock_group([])
+
+					# Unselect visually
+					carrier.set_selected(false)
+
+					# Remove from selected group
+					selected_entities.erase(carrier)
+
+					# Begin carry task
+					carrier.carry(clicked_entity)
+				
 			else:
 				# Regular move if clicked on ground
 				var unit_count = selected_entities.size()

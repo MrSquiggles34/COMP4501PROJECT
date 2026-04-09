@@ -6,7 +6,8 @@ extends Dragon
 func _ready():
 	super._ready()
 	dragon_type = DragonType.GROUND
-	damage = 2.0
+	damage = 3.0
+	speed_multiplier = 1.2
 
 func _process(delta):
 	super._process(delta)

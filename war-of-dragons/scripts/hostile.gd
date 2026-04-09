@@ -9,7 +9,7 @@ enum HostileType { MUSHROOM, SLIME, FLYTRAP, GOLEM }
 
 var max_health
 var health # is initialized as equal to max_health
-
+var is_dead: bool = false
 
 # State machine
 var current_state: EnemyState
@@ -67,6 +67,9 @@ func can_target_dragon(dragon: Dragon) -> bool:
 	return dragon.dragon_type != Dragon.DragonType.FLY
 	
 func take_damage(amount: float):
+	if is_dead:
+		return
+	
 	health -= amount
 	
 	# Update health bar here
@@ -79,6 +82,11 @@ const CollectibleCoinScene = preload("res://scenes/collectible_coin.tscn")
 const CollectibleEggScene = preload("res://scenes/collectible.tscn")
 
 func die():
+	if is_dead:
+		return
+
+	is_dead = true
+	
 	play_death_effect()
 	
 	# Spawn collectibles

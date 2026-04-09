@@ -19,14 +19,14 @@ func _ready():
 	# Enemy AI stuffs
 	golem_wander_state.wander_radius = 12.0
 	golem_wander_state.move_speed = 2.0
-	golem_wander_state.pick_interval = 8.0
+	golem_wander_state.pick_interval = 7.0
 	
 	golem_pursue_state.move_speed = 2.0
 	golem_pursue_state.lose_distance = 8.0
-	golem_pursue_state.attack_distance = 4.0
+	golem_pursue_state.attack_distance = 6.0
 	
-	golem_attack_state.attack_range = 4.0
-	golem_attack_state.attack_cooldown = 4.0
+	golem_attack_state.attack_range = 6.0
+	golem_attack_state.attack_cooldown = 2.0
 	
 	attack_state_instance = golem_attack_state
 	pursue_state_instance = golem_pursue_state
